@@ -1,0 +1,24 @@
+.app__home {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  background: rgba(26, 26, 26, 0.944);
+  padding: 1rem 10rem;
+  align-items: center;
+  flex-direction: column;
+}
+
+.app__header-h1 {
+  margin: 1rem 0;
+  font-family: var(--font-alt);
+  color: var(--color-golden);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 40px;
+  text-align: center;
+}
+
+.app__home-covers {
+  display: flex;
+  flex-direction: row;
+}
