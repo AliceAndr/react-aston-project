@@ -1,0 +1,44 @@
+.app__formInput {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.app__formInput input{
+  padding: 15px;
+  margin: 10px 0px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  background-color: rgb(193, 193, 193);
+  transition: .3s;
+}
+
+
+.app__formInput label{
+  font-size: 12px;
+  color: rgb(184, 184, 184);
+}
+
+.app__formInput span{
+  font-size: 12px;
+  padding: 3px;
+  color: red;
+  display: none;
+}
+
+.app__formInput input:invalid[data-focused="true"]{
+  border: 1px solid red;
+}
+
+.app__formInput input:invalid[data-focused="true"] ~ span{
+  display: block;
+}
+
+.app__formInput input:focus {
+  outline: none;
+}
+
+.app__formInput input:hover {
+  background-color: rgb(233, 233, 233);
+}

@@ -1,0 +1,19 @@
+.app__signin {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  background: rgba(26, 26, 26, 0.944);
+  padding: 1rem 10rem;
+  align-items: center;
+  flex-direction: column;
+}
+
+.app__signin-redirect {
+  color: #B8B8B8;
+  font-family: var(--font-base);
+  font-size: 16px;
+}
+
+.app__signin-redirect-span {
+  text-decoration: underline;
+}

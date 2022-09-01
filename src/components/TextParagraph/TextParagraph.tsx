@@ -1,7 +1,7 @@
 import React from "react";
 import './TextParagraph.css';
 
-export interface TextParagraphProps {
+interface TextParagraphProps {
   text: string
 }
 
