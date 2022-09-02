@@ -20,7 +20,6 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["teams", "fetchFavorites"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
