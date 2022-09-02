@@ -47,7 +47,7 @@ const SignIn:React.FC = () => {
     <div className="app__signin">
         <div className="app__signin-form">
           <form onSubmit={handleSubmit}>
-            <h1 className="app__signin-form-h1">Welcome Back! Sign In Now!</h1>
+            <h1 className="app__signin-form-h1">Happy to see you back! Please, Sign In.</h1>
             {inputs.map((input) => (
               <FormInput
                 key={input.id}

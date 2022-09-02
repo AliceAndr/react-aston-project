@@ -77,7 +77,7 @@ const SignUp:React.FC = () => {
               type={input.type}
               errorMessage={input.errorMessage}
               label={input.label}
-              pattern={input.pattern}
+              pattern={input.pattern ?? ''}
               required={input.required}
               placeholder={input.placeholder}
               value={values[input.name as keyof typeof values]}

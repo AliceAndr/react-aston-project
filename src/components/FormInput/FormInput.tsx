@@ -3,22 +3,23 @@ import "./FormInput.css";
 
 interface FormInputProps {
   id: number,
-  value: any,
+  value: string,
   name: string,
   type: string,
   placeholder: string,
   errorMessage: string,
   label: string,
-  pattern: string | undefined,
+  pattern: string,
   required: boolean,
-  onChange: (e: React.SyntheticEvent) => void
+  // onChange: (e: React.SyntheticEvent) => void
+  onChange: React.ChangeEventHandler<HTMLInputElement>
 }
 
 const FormInput:React.FC<FormInputProps> = (props) => {
   const [focused, setFocused] = useState(false);
   const { label, errorMessage, onChange, id, ...inputProps } = props;
 
-  const handleFocus = (e: React.SyntheticEvent) => {
+  const handleFocus = () => {
     setFocused(true);
   };
 
