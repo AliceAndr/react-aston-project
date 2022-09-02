@@ -9,17 +9,17 @@ interface FormInputProps {
   placeholder: string,
   errorMessage: string,
   label: string,
-  pattern: string,
+  pattern?: string,
   required: boolean,
-  // onChange: (e: React.SyntheticEvent) => void
-  onChange: React.ChangeEventHandler<HTMLInputElement>
+  onChange: (e: React.SyntheticEvent) => void
+  // onChange: React.ChangeEventHandler<HTMLInputElement>
 }
 
 const FormInput:React.FC<FormInputProps> = (props) => {
   const [focused, setFocused] = useState(false);
   const { label, errorMessage, onChange, id, ...inputProps } = props;
 
-  const handleFocus = () => {
+  const handleFocus = (e: React.SyntheticEvent) => {
     setFocused(true);
   };
 

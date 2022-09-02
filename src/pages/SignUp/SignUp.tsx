@@ -1,7 +1,9 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FormInput from "../../components/FormInput/FormInput";
+import { addUser } from "../../redux/slices/userSlice";
 import './SignUp.css';
+import { useAppDispatch } from "../../hooks/hooks";
 
 const SignUp:React.FC = () => {
   const [values, setValues] = useState({
@@ -10,6 +12,9 @@ const SignUp:React.FC = () => {
     password: "",
     confirmPassword: "",
   });
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const inputs = [
     {
@@ -57,6 +62,17 @@ const SignUp:React.FC = () => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    const newUser = {
+      username: values.username,
+      email: values.email,
+      password: values.password,
+      isAuth: false,
+      favorites: [],
+      searchParams: [],
+    };
+
+    dispatch(addUser(newUser));
+    navigate('/signin');
   };
 
   const onChange = (e: React.SyntheticEvent) => {
@@ -77,7 +93,7 @@ const SignUp:React.FC = () => {
               type={input.type}
               errorMessage={input.errorMessage}
               label={input.label}
-              pattern={input.pattern ?? ''}
+              pattern={input.pattern}
               required={input.required}
               placeholder={input.placeholder}
               value={values[input.name as keyof typeof values]}

@@ -1,24 +1,28 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FormInput from "../../components/FormInput/FormInput";
+import { signIn } from "../../redux/slices/userSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import './SignIn.css';
 
 const SignIn:React.FC = () => {
   const [values, setValues] = useState({
-    username: "",
+    email: "",
     password: ""
   });
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const usersFromStore = useAppSelector(state => state.user);
 
   const inputs = [
     {
       id: 1,
-      name: "username",
-      type: "text",
-      placeholder: "Username",
-      errorMessage:
-        "Username should be 3-16 characters and shouldn't include any special character!",
-      label: "Username",
-      pattern: "^[A-Za-z0-9]{3,16}$",
+      name: "email",
+      type: "email",
+      placeholder: "Email",
+      errorMessage: "It should be a valid email address!",
+      label: "Email",
       required: true,
     },
     {
@@ -36,6 +40,21 @@ const SignIn:React.FC = () => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
+
+    try {
+      let checkEmail = usersFromStore[values.email as keyof typeof usersFromStore]['email'];
+
+      if (checkEmail && values.password === usersFromStore[values.email as keyof typeof usersFromStore]['password']) {
+        dispatch(signIn(values.email));
+
+        navigate("/");
+      } else {
+        alert("Invalid password.");
+      }
+    } catch (err) {
+      alert("User doesn't exist.");
+    }
+
   };
 
   const onChange = (e: React.SyntheticEvent) => {
