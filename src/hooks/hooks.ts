@@ -11,7 +11,6 @@ export const useCurrentUser = () => {
 
   if (usersFromStore) {
     currentUser = Object.values(usersFromStore).filter(
-      //  @ts-ignore
       (obj) => obj.isAuth === true
     )[0];
   }

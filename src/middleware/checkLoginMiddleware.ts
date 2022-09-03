@@ -6,11 +6,8 @@ export const checkLoginMiddleware = (store: any) => (next:any) => (action: any) 
 
   if (action.type === "user/addUser") {
     const sameEmailPrevUsers = Object.values(currentStore.user).find(
-      //  @ts-ignore
       (user) => user.email === action.payload.email
     );
-
-    console.log('here!!!!!!!!!!!=====================');
 
     if (sameEmailPrevUsers) {
       alert("Such user already exists! Try again using different email.");

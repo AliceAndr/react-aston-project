@@ -7,7 +7,7 @@ import housesCover from '../../assets/houses-min.jpg';
 import charactersCover from '../../assets/characters-min.jpg';
 import booksCover from '../../assets/books-min.jpg';
 
-const Home:React.FC = () => {
+const Home = () => {
   return (
     <div className="app__home">
       <h1 className='app__header-h1'>Welcome to Game Of Thrones Wiki!</h1>

@@ -6,22 +6,19 @@ import mainLogo from '../../assets/Site-logo.webp';
 import './Navbar.css';
 
 
-const Navbar:React.FC = () => {
+const Navbar = () => {
   const dispatch = useAppDispatch();
   let isAuth:boolean = false;
   let username: string = '';
   const currentUser = useCurrentUser();
   
   if (currentUser) {
-    //  @ts-ignore
     isAuth = currentUser.isAuth;
-    //  @ts-ignore
     username = currentUser.username;
   }
 
   const logout = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    //  @ts-ignore
     dispatch(logOut(currentUser.email));
   };
 

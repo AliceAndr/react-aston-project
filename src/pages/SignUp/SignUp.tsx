@@ -5,7 +5,7 @@ import { addUser } from "../../redux/slices/userSlice";
 import './SignUp.css';
 import { useAppDispatch } from "../../hooks/hooks";
 
-const SignUp:React.FC = () => {
+const SignUp = () => {
   const [values, setValues] = useState({
     username: "",
     email: "",
