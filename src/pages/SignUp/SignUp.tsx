@@ -75,7 +75,7 @@ const SignUp = () => {
     navigate('/signin');
   };
 
-  const onChange = (e: React.SyntheticEvent) => {
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const target = e.target as HTMLInputElement;
     setValues({ ...values, [target.name]: target.value });
   };
