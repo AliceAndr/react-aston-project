@@ -4,6 +4,8 @@ import { Navbar } from './components/Navbar/Navbar';
 import { Home } from './pages/Home/Home';
 import { SignIn } from './pages/SignIn/SignIn';
 import { SignUp } from './pages/SignUp/SignUp';
+import { BookPage } from './pages/BookPage/BookPage';
+import { BooksSection } from './pages/BooksSection/BooksSection';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
+        <Route path='/books' element={<BooksSection />} />
+        <Route path='/books/:name' element={<BookPage />} />
       </Routes>
       <Footer />
     </div>

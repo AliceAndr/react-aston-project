@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../redux/store";
 
@@ -20,4 +21,20 @@ export const useCurrentUser = () => {
   }
 
   return;
+}
+
+export const useDebounce = (value: string, delay: number): string => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
 }

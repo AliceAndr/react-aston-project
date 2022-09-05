@@ -1,6 +1,7 @@
 .app__home {
   width: 100%;
   height: fit-content;
+  min-height: 100vh;
   display: flex;
   background: rgba(26, 26, 26, 0.944);
   padding: 1rem 10rem;
