@@ -35,19 +35,19 @@ const Navbar = () => {
           </ul>
       }
 
-      {isAuth ?
+      {isAuth ? (
         <div className='app__navbar-login'>
           <div className='p__opensans'>{username}</div>
           <div className='app__navbar-login-separator'></div>
           <div onClick={logout} className='p__opensans'>Log Out</div>
-        </div> :
-
+        </div>
+       ) : (
         <div className='app__navbar-login'>
           <Link to='/signin'><div className='p__opensans'>Sign In</div></Link>
           <div className='app__navbar-login-separator'></div>
           <Link to='/signup'><div className='p__opensans'>Sign Up</div></Link>
         </div>
-      }
+      )}
 
       {/* <ul className='app__navbar-links'>
         <li className='app__navbar-item'><a href='#favorites'>Favorites</a></li>
