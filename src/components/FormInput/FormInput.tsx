@@ -19,7 +19,7 @@ const FormInput:React.FC<FormInputProps> = (props) => {
   const [focused, setFocused] = useState(false);
   const { label, errorMessage, onChange, id, ...inputProps } = props;
 
-  const handleFocus = (e: React.SyntheticEvent) => {
+  const handleFocus = () => {
     setFocused(true);
   };
 
