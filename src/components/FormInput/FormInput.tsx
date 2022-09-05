@@ -11,11 +11,10 @@ interface FormInputProps {
   label: string,
   pattern?: string,
   required: boolean,
-  onChange: (e: React.SyntheticEvent) => void
-  // onChange: React.ChangeEventHandler<HTMLInputElement>
+  onChange: React.ChangeEventHandler<HTMLInputElement>
 }
 
-const FormInput:React.FC<FormInputProps> = (props) => {
+export const FormInput: React.FC<FormInputProps> = (props) => {
   const [focused, setFocused] = useState(false);
   const { label, errorMessage, onChange, id, ...inputProps } = props;
 
@@ -33,11 +32,9 @@ const FormInput:React.FC<FormInputProps> = (props) => {
         onFocus={() =>
           inputProps.name === "confirmPassword" && setFocused(true)
         }
-        data-focused = {focused.toString()}
+        data-focused={focused.toString()}
       />
       <span>{errorMessage}</span>
     </div>
   );
 };
-
-export default FormInput;

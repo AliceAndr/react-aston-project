@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
-import FormInput from "../../components/FormInput/FormInput";
+import { FormInput } from "../../components/FormInput/FormInput";
 import { addUser } from "../../redux/slices/userSlice";
-import './SignUp.css';
 import { useAppDispatch } from "../../hooks/hooks";
+import './SignUp.css';
 
-const SignUp = () => {
+export const SignUp = () => {
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -75,9 +75,8 @@ const SignUp = () => {
     navigate('/signin');
   };
 
-  const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const target = e.target as HTMLInputElement;
-    setValues({ ...values, [target.name]: target.value });
+  const onChange = (value: string, name: string) => {
+    setValues({ ...values, [name]: value });
   };
 
   return (
@@ -97,7 +96,7 @@ const SignUp = () => {
               required={input.required}
               placeholder={input.placeholder}
               value={values[input.name as keyof typeof values]}
-              onChange={onChange}
+              onChange={(e) => onChange(e.target.value, e.target.name)}
             />
           ))}
           <button className="app__form-button">Submit</button>
@@ -110,5 +109,3 @@ const SignUp = () => {
     </div>
   )
 }
-
-export default SignUp;
