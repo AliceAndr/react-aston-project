@@ -1,0 +1,32 @@
+.app__cover {
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  transition: transform .6s;
+}
+
+.app__cover-img {
+  filter: brightness(45%);
+  width: 340px;
+  height: 500px;
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  margin: 3rem 1rem;
+}
+
+.app__cover-h2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-alt);
+  color: var(--color-golden);
+  letter-spacing: 0.04em;
+  font-size: 30px;
+  text-align: center;
+}
+
+.app__cover:hover {
+  transform: scale(107%);
+}

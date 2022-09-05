@@ -1,0 +1,9 @@
+.app__about {
+  height: fit-content;
+  padding: 1rem 4rem;
+}
+
+.app__about-text {
+  font-family: var(--font-base);
+  color: var(--color-white);
+}
