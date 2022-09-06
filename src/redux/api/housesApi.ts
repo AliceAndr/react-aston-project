@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface IHousesResponse {
-	name?: string;
-	[propName: string]: any;
+  name?: string;
+  [propName: string]: any;
 }
 
 export const housesApi = createApi({
@@ -10,10 +10,6 @@ export const housesApi = createApi({
   tagTypes: ['Houses'],
   baseQuery: fetchBaseQuery({ baseUrl: 'https://anapioficeandfire.com/api/houses/' }),
   endpoints: (build) => ({
-    getHouses: build.query<Record<string, any>[], void>({
-      // query: (limit = '') => `goods?${limit && `_limit=${limit}`}`,
-      query: () => '?page=1&pageSize=10',
-    }),
     getOneHouse: build.query<IHousesResponse, string>({
       query: (name) => ({
         url: `?name=${name}`,
@@ -21,17 +17,20 @@ export const housesApi = createApi({
       }),
       transformResponse: (res: Array<IHousesResponse>) => res[0]
     }),
-    searchHouse: build.query<IHousesResponse, string>({
-			query: (name) => ({
-				url: `?name=${name}`,
-				method: "GET",
-			}),
-			transformResponse: (res: Array<IHousesResponse> | []) => {
-				return res
-					.filter((el) => el.name)
-			},
-		}),
+    searchHouse: build.query<IHousesResponse, any>({
+      query: (arg) => {
+        const { filteredSearchTerm, checkedItems } = arg;
+        console.log(filteredSearchTerm, checkedItems, 'pleaaaaaase')
+        return {
+          url: `?name=${filteredSearchTerm || ''}&hasTitles=${checkedItems.hasTitles || ''}&hasSeats=${checkedItems.hasSeats || ''}&hasDiedOut=${checkedItems.hasDiedOut || ''}&page=1&pageSize=30`,
+        };
+      },
+      transformResponse: (res: Array<IHousesResponse> | []) => {
+        return res
+          .filter((el) => el.name)
+      },
+    }),
   })
 });
 
-export const {useGetHousesQuery, useGetOneHouseQuery, useSearchHouseQuery} = housesApi;
+export const { useGetOneHouseQuery, useSearchHouseQuery } = housesApi;

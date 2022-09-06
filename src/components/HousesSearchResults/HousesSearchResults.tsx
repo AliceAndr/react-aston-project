@@ -5,13 +5,14 @@ import { useSearchHouseQuery } from "../../redux/api/housesApi";
 
 type HousesSearchResultsProps = {
   searchTerm: string;
+  checkedItems: Record<string, boolean>
 };
 
 export const HousesSearchResults: React.FC<HousesSearchResultsProps> = ({
-  searchTerm
+  searchTerm, checkedItems
 }: HousesSearchResultsProps) => {
   const [filteredSearchTerm, setFilteredSearchTerm] = useState(searchTerm);
-  const { data, error, isLoading, isFetching } = useSearchHouseQuery(filteredSearchTerm);
+  const { data, error, isLoading, isFetching } = useSearchHouseQuery({ filteredSearchTerm, checkedItems });
   const [show, setShow] = useState(false);
   const houses = data ?? [];
 
@@ -46,7 +47,7 @@ export const HousesSearchResults: React.FC<HousesSearchResultsProps> = ({
   if (show) {
     return (
       <ul className='app__booksSection-ul'>
-        {houses.map((item: any, index:number) =>
+        {houses.map((item: any, index: number) =>
           <li className='app__booksSection-li' key={index}>
             <Link to={`${item.name}`}>{item.name}</Link>
           </li>
