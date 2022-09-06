@@ -6,6 +6,8 @@ import { SignIn } from './pages/SignIn/SignIn';
 import { SignUp } from './pages/SignUp/SignUp';
 import { BookPage } from './pages/BookPage/BookPage';
 import { BooksSection } from './pages/BooksSection/BooksSection';
+import { HousesSection } from './pages/HousesSection/HousesSection';
+import { HousePage } from './pages/HousePage/HousePage';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/books' element={<BooksSection />} />
         <Route path='/books/:name' element={<BookPage />} />
+        <Route path='/houses/' element={<HousesSection />} />
+        <Route path='/houses/:name' element={<HousePage />} />
       </Routes>
       <Footer />
     </div>

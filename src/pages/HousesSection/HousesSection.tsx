@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useGetAllBooksQuery } from '../../redux/api/booksApi';
-import { BookSearchResults } from '../../components/BooksSearchResults/BooksSearchResults';
+import { useGetHousesQuery } from '../../redux/api/housesApi';
 import { useDebounce } from '../../hooks/hooks';
 import { TextParagraph } from '../../components/TextParagraph/TextParagraph';
-import './BooksSection.css';
+import { HousesSearchResults } from '../../components/HousesSearchResults/HousesSearchResults';
+import './HousesSection.css';
 
-export const BooksSection = () => {
-  const { data = [], isLoading } = useGetAllBooksQuery();
+export const HousesSection = () => {
+  const { data = [], isLoading } = useGetHousesQuery();
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 1500);
   const myUrl = new URL(window.location.href)
@@ -26,22 +26,30 @@ export const BooksSection = () => {
   )
 
   return (
-    <div className='app__booksSection'>
+    <div className='app__housesSection'>
       <h1>Books by G. R. R. Martin</h1>
-      <TextParagraph text='Welcome to the Book Section! Here you can find the information about all the books written by the great author - G. R. R. Martin. Click on the title to go to the Info page - there you will find all the information you were looking for! :) Feel free to try it out! :)' />
+      <TextParagraph text='Welcome to the Houses Section!' />
       <TextParagraph text='Please, consider the fact that the API used on this page does not support the search by partial title. This means that you can find the necessary book only by writing the whole title of it. For example, try searching "A Game of Thrones" or "The Sworn Sword". Have fun! :)' />
 
-      <input className='app__booksSection-input' value={searchTerm} onChange={onChange} />
+      <input className='app__housesSection-input' value={searchTerm} onChange={onChange} />
 
-      <h2>Books found:</h2>
+      <h2>Houses found:</h2>
+
+      {/* <ul className='app__housesSection-ul'>
+        {data.map((item, index) =>
+          <li className='app__housesSection-li' key={index}>
+            <Link to={`${item.name}`}>{item.name}</Link>
+          </li>
+        )}
+      </ul> */}
 
       {(debouncedSearchTerm || param)
         ?
-        <BookSearchResults searchTerm={debouncedSearchTerm} />
+        <HousesSearchResults searchTerm={debouncedSearchTerm} />
         :
-        <ul className='app__booksSection-ul'>
-          {data.map(item =>
-            <li className='app__booksSection-li' key={item.isbn}>
+        <ul className='app__housesSection-ul'>
+          {data.map((item, index) =>
+            <li className='app__housesSection-li' key={index}>
               <Link to={`${item.name}`}>{item.name}</Link>
             </li>
           )}

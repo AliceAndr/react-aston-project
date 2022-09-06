@@ -1,4 +1,4 @@
-.app__booksSection {
+.app__housesSection {
   width: 100%;
   height: fit-content;
   min-height: 100vh;
@@ -9,7 +9,7 @@
   flex-direction: column;
 }
 
-.app__booksSection-input {
+.app__housesSection-input {
   min-width: 900px;
   padding: 15px;
   margin: 30px 0px;
@@ -19,7 +19,7 @@
   transition: .3s;
 }
 
-.app__booksSection h1 {
+.app__housesSection h1 {
   margin: 1rem 0;
   font-family: var(--font-alt);
   color: var(--color-golden);
@@ -29,7 +29,7 @@
   text-align: center;
 }
 
-.app__booksSection h2 {
+.app__housesSection h2 {
   margin: 1rem 0;
   font-family: var(--font-alt);
   color: var(--color-golden);
@@ -39,7 +39,7 @@
   text-align: center;
 }
 
-.app__booksSection-ul {
+.app__housesSection-ul {
   width: 80%;
   color: var(--color-white);
   display: flex;
@@ -51,7 +51,7 @@
   border-radius: 10px;
 }
 
-.app__booksSection-li {
+.app__housesSection-li {
   font-family: var(--font-base);
   list-style: none;
   font-size: 18px;
@@ -59,14 +59,14 @@
   transition: .4s;
 }
 
-.app__booksSection-li:hover {
+.app__housesSection-li:hover {
   border-bottom: 1px solid var(--color-golden);
 }
 
-.app__booksSection-input:focus {
+.app__housesSection-input:focus {
   outline: none;
 }
 
-.app__booksSection-input:hover {
+.app__housesSection-input:hover {
   background-color: rgb(233, 233, 233);
 }

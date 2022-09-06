@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSearchBookQuery } from '../../redux/api/booksApi';
-import './BooksSearchResults.css';
+import { useSearchHouseQuery } from "../../redux/api/housesApi";
+// import './BooksSearchResults.css';
 
-type BookSearchResultsProps = {
+type HousesSearchResultsProps = {
   searchTerm: string;
 };
 
-export const BookSearchResults: React.FC<BookSearchResultsProps> = ({
+export const HousesSearchResults: React.FC<HousesSearchResultsProps> = ({
   searchTerm
-}: BookSearchResultsProps) => {
+}: HousesSearchResultsProps) => {
   const [filteredSearchTerm, setFilteredSearchTerm] = useState(searchTerm);
-  const { data, error, isLoading, isFetching } = useSearchBookQuery(filteredSearchTerm);
+  const { data, error, isLoading, isFetching } = useSearchHouseQuery(filteredSearchTerm);
   const [show, setShow] = useState(false);
-  const books = data ?? [];
+  const houses = data ?? [];
 
   React.useEffect(() => {
     const myUrl = new URL(window.location.href)
@@ -29,25 +29,25 @@ export const BookSearchResults: React.FC<BookSearchResultsProps> = ({
   }, [searchTerm]);
 
   if (error) {
-    return <div className="app__booksSection-hint">Error while fetching books</div>;
+    return <div className="app__booksSection-hint">Error while fetching houses</div>;
   }
 
   if (isLoading) {
-    return <div className="app__booksSection-hint">Loading books...</div>;
+    return <div className="app__booksSection-hint">Loading houses...</div>;
   }
 
   if (isFetching) {
-    return <div className="app__booksSection-hint">Fetching books...</div>;
+    return <div className="app__booksSection-hint">Fetching houses...</div>;
   }
 
-  if (books.length === 0) {
-    return <div className="app__booksSection-hint">No books found</div>;
+  if (houses.length === 0) {
+    return <div className="app__booksSection-hint">No houses found</div>;
   }
   if (show) {
     return (
       <ul className='app__booksSection-ul'>
-        {books.map((item: any) =>
-          <li className='app__booksSection-li' key={item.isbn}>
+        {houses.map((item: any, index:number) =>
+          <li className='app__booksSection-li' key={index}>
             <Link to={`${item.name}`}>{item.name}</Link>
           </li>
         )}
@@ -57,3 +57,4 @@ export const BookSearchResults: React.FC<BookSearchResultsProps> = ({
     return null;
   }
 };
+

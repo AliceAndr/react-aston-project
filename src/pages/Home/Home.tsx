@@ -15,7 +15,7 @@ export const Home = () => {
       <TextParagraph text="To find the information you need, please go to the following sections and use the search button. And don't forget to login to use all the site features!" />
 
       <div className="app__home-covers">
-        <SectionCover image={housesCover} text="The Great Houses" alt="Houses of Westeros and Essos" />
+        <Link to='/houses'><SectionCover image={housesCover} text="The Great Houses" alt="Houses of Westeros and Essos" /></Link>
         <SectionCover image={charactersCover} text="Characters" alt="Heroes of Westeros and Essos" />
         <Link to='/books'><SectionCover image={booksCover} text="Book Series" alt="Books" /></Link>
       </div>
