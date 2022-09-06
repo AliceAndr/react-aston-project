@@ -26,9 +26,7 @@ export const HousesSection = () => {
 
 
   React.useEffect(() => {
-    if (searchTerm.length > 0) {
-      window.history.pushState({}, '', `?search=${searchTerm}`);
-    }
+      window.history.pushState({}, '', `?search=${searchTerm || ''}&hasTitles=${checkedItems.hasTitles || ''}&hasSeats=${checkedItems.hasSeats || ''}&hasDiedOut=${checkedItems.hasDiedOut || ''}`);
   }, [searchTerm, checkedItems]
   )
 
