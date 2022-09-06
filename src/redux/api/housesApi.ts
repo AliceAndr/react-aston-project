@@ -12,7 +12,7 @@ export const housesApi = createApi({
   endpoints: (build) => ({
     getHouses: build.query<Record<string, any>[], void>({
       // query: (limit = '') => `goods?${limit && `_limit=${limit}`}`,
-      query: () => '?page=1&pageSize=20',
+      query: () => '?page=1&pageSize=10',
     }),
     getOneHouse: build.query<IHousesResponse, string>({
       query: (name) => ({
@@ -29,17 +29,6 @@ export const housesApi = createApi({
 			transformResponse: (res: Array<IHousesResponse> | []) => {
 				return res
 					.filter((el) => el.name)
-					.map((el) => {
-						return {
-							name: el.name,
-							region: el.region,
-							words: el.words,
-							founded: el.founded,
-							coatOfArms: el.coatOfArms,
-							titles: el.titles,
-              seats: el.seats
-						};
-					});
 			},
 		}),
   })
