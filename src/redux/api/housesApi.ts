@@ -17,12 +17,10 @@ export const housesApi = createApi({
       }),
       transformResponse: (res: Array<IHousesResponse>) => res[0]
     }),
-    searchHouse: build.query<IHousesResponse, any>({
-      query: (arg) => {
-        const { filteredSearchTerm, checkedItems } = arg;
-        console.log(filteredSearchTerm, checkedItems, 'pleaaaaaase')
+    searchHouses: build.query<IHousesResponse, any>({
+      query: (arg: string) => {
         return {
-          url: `?name=${filteredSearchTerm || ''}&hasTitles=${checkedItems.hasTitles || ''}&hasSeats=${checkedItems.hasSeats || ''}&hasDiedOut=${checkedItems.hasDiedOut || ''}&page=1&pageSize=30`,
+          url: `/?${arg}`,
         };
       },
       transformResponse: (res: Array<IHousesResponse> | []) => {
@@ -33,4 +31,4 @@ export const housesApi = createApi({
   })
 });
 
-export const { useGetOneHouseQuery, useSearchHouseQuery } = housesApi;
+export const { useGetOneHouseQuery, useSearchHousesQuery } = housesApi;

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSearchHouseQuery } from "../../redux/api/housesApi";
+import { useSearchHousesQuery } from "../../redux/api/housesApi";
 // import './BooksSearchResults.css';
 
 type HousesSearchResultsProps = {
   searchTerm: string;
-  checkedItems: Record<string, boolean>
+  query: string
 };
 
-export const HousesSearchResults: React.FC<HousesSearchResultsProps> = ({
-  searchTerm, checkedItems
-}: HousesSearchResultsProps) => {
+export const HousesSearchResults: React.FC<HousesSearchResultsProps> = (props: HousesSearchResultsProps) => {
+  const {searchTerm, query} = props
+  
   const [filteredSearchTerm, setFilteredSearchTerm] = useState(searchTerm);
-  const { data, error, isLoading, isFetching } = useSearchHouseQuery({ filteredSearchTerm, checkedItems });
+  const { data, error, isLoading, isFetching } = useSearchHousesQuery(query);
   const [show, setShow] = useState(false);
   const houses = data ?? [];
 

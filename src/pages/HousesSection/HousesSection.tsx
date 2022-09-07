@@ -1,34 +1,57 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useDebounce } from '../../hooks/hooks';
 import { TextParagraph } from '../../components/TextParagraph/TextParagraph';
 import { HousesSearchResults } from '../../components/HousesSearchResults/HousesSearchResults';
-import { Checkbox } from '../../components/Checkbox/Checkbox';
-import checkboxes from '../../utils/checkboxConfig';
 import './HousesSection.css';
 
-export const HousesSection = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [checkedItems, setCheckedItems] = useState({ hasSeats: false, hasDiedOut: false, hasTitles: false } as Record<string, boolean>);
-  const debouncedSearchTerm = useDebounce(searchTerm, 1500);
-  const myUrl = new URL(window.location.href)
-  const param = myUrl.searchParams.get('search');
+const arrFilter = ['hasTitles', 'hasSeats', 'hasDiedOut']
 
-  const handleCheck = (e: React.SyntheticEvent) => {
-    const target = e.target as HTMLInputElement;
-    setCheckedItems({ ...checkedItems, [target.name]: target.checked });
-  }
+export const HousesSection = () => {
+  const [filterState, setFilterState] = React.useState<Record<string, boolean>>({})
+  const [query, setQuery] = React.useState('')
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearchTerm = useDebounce(searchTerm, 1500);
+  console.log(debouncedSearchTerm, 'heeeere')
 
   const onChange = (e: React.SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setSearchTerm(target.value);
   }
 
+  const clickOnFilterItem = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.target as HTMLElement
+    const value = target.innerText
+
+    if (!filterState[value]) {
+      const result = filterState
+      result[value] = true
+      setFilterState(result)
+    } else {
+      const result = filterState
+      result[value] = false
+      setFilterState(result)
+    }
+  }
+  const sort = () => {
+    const resaultQueryParams = []
+    for (let key in filterState) {
+      if (filterState[key]) {
+        resaultQueryParams.push(`${key}=true`)
+      }
+    }
+    console.log(resaultQueryParams);
+    window.history.replaceState({}, '', `?${resaultQueryParams.join('&')}`)
+    setQuery(resaultQueryParams.join('&'))
+  }
 
   React.useEffect(() => {
-      window.history.pushState({}, '', `?search=${searchTerm || ''}&hasTitles=${checkedItems.hasTitles || ''}&hasSeats=${checkedItems.hasSeats || ''}&hasDiedOut=${checkedItems.hasDiedOut || ''}`);
-  }, [searchTerm, checkedItems]
-  )
+    const myUrlAllQuery = window.location.href.split('?')[1]
+    setQuery(myUrlAllQuery)
+    // if(myUrlAllQuery.length > 0) {
+    //   setQuery(myUrlAllQuery)
+    // }
+  }, [])
 
   return (
     <div className='app__housesSection'>
@@ -37,17 +60,20 @@ export const HousesSection = () => {
       <TextParagraph text='Please, consider the fact that the API used on this page does not support the search by partial title. This means that you can find the necessary house only by writing the whole name of it. For example, try searching "House Stark of Winterfell" or "House Lannister of Casterly Rock". Have fun! :)' />
 
       <input className='app__housesSection-input' value={searchTerm} onChange={onChange} />
-      {
-        checkboxes.map(item => (
-          <label key={item?.key}>
-            {item.name}
-            <Checkbox name={item?.name} value={checkedItems[item?.name]} type="checkbox" checked={checkedItems[item?.name]} onChange={handleCheck} />
-          </label>
-        ))
-      }
-
+      <div className="filterWrap">
+        <ul>
+          {
+            arrFilter.map((el, i) => {
+              return (
+                <div key={i} onClick={(e) => clickOnFilterItem(e)}>{el}</div>
+              )
+            })
+          }
+          <button onClick={sort}>Сортируй</button>
+        </ul>
+      </div>
       <h2>Houses found:</h2>
-      <HousesSearchResults searchTerm={debouncedSearchTerm} checkedItems={checkedItems} />
+      <HousesSearchResults query={query} searchTerm={debouncedSearchTerm} />
 
     </div>
   )
