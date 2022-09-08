@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDebounce } from '../../hooks/hooks';
 import { TextParagraph } from '../../components/TextParagraph/TextParagraph';
 import { HousesSearchResults } from '../../components/HousesSearchResults/HousesSearchResults';
 import './HousesSection.css';
@@ -11,8 +10,9 @@ export const HousesSection = () => {
   const [query, setQuery] = React.useState('')
 
   const [searchTerm, setSearchTerm] = useState("");
-  const debouncedSearchTerm = useDebounce(searchTerm, 1500);
-  console.log(debouncedSearchTerm, 'heeeere')
+
+  let params = new URLSearchParams(document.location.search);
+  let name = params.get("name")
 
   const onChange = (e: React.SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
@@ -27,30 +27,31 @@ export const HousesSection = () => {
       const result = filterState
       result[value] = true
       setFilterState(result)
+      setSearchTerm(name || '');
     } else {
       const result = filterState
       result[value] = false
       setFilterState(result)
+      setSearchTerm(name || '');
     }
   }
   const sort = () => {
-    const resaultQueryParams = []
+    const resaultQueryParams = [];
+    resaultQueryParams.push(`name=${searchTerm}`)
     for (let key in filterState) {
       if (filterState[key]) {
         resaultQueryParams.push(`${key}=true`)
       }
     }
-    console.log(resaultQueryParams);
     window.history.replaceState({}, '', `?${resaultQueryParams.join('&')}`)
     setQuery(resaultQueryParams.join('&'))
   }
 
   React.useEffect(() => {
     const myUrlAllQuery = window.location.href.split('?')[1]
+    console.log(myUrlAllQuery, 'query')
     setQuery(myUrlAllQuery)
-    // if(myUrlAllQuery.length > 0) {
-    //   setQuery(myUrlAllQuery)
-    // }
+    setSearchTerm(name || '');
   }, [])
 
   return (
@@ -73,7 +74,7 @@ export const HousesSection = () => {
         </ul>
       </div>
       <h2>Houses found:</h2>
-      <HousesSearchResults query={query} searchTerm={debouncedSearchTerm} />
+      <HousesSearchResults query={query} />
 
     </div>
   )

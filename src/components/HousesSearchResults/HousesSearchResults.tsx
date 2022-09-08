@@ -1,33 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useSearchHousesQuery } from "../../redux/api/housesApi";
 // import './BooksSearchResults.css';
 
 type HousesSearchResultsProps = {
-  searchTerm: string;
   query: string
 };
 
-export const HousesSearchResults: React.FC<HousesSearchResultsProps> = (props: HousesSearchResultsProps) => {
-  const {searchTerm, query} = props
+export const HousesSearchResults: React.FC<HousesSearchResultsProps> = (props) => {
+  const { query} = props
   
-  const [filteredSearchTerm, setFilteredSearchTerm] = useState(searchTerm);
   const { data, error, isLoading, isFetching } = useSearchHousesQuery(query);
-  const [show, setShow] = useState(false);
   const houses = data ?? [];
-
-  React.useEffect(() => {
-    const myUrl = new URL(window.location.href)
-    const param = myUrl.searchParams.get('search');
-    setFilteredSearchTerm(param as string);
-    setShow(true)
-  }, [show])
-
-  useEffect(() => {
-    if (searchTerm.length === 0 || searchTerm.length > 4) {
-      setFilteredSearchTerm(searchTerm);
-    }
-  }, [searchTerm]);
 
   if (error) {
     return <div className="app__booksSection-hint">Error while fetching houses</div>;
@@ -44,7 +28,7 @@ export const HousesSearchResults: React.FC<HousesSearchResultsProps> = (props: H
   if (houses.length === 0) {
     return <div className="app__booksSection-hint">No houses found</div>;
   }
-  if (show) {
+  if (houses.length >= 1) {
     return (
       <ul className='app__booksSection-ul'>
         {houses.map((item: any, index: number) =>
