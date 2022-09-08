@@ -63,14 +63,14 @@ export const HousesSection = () => {
       <input className='app__housesSection-input' value={searchName} onChange={onChange} />
       <div className="app__housesSection-filterWrap">
 
-          {
-            housesFilterArr.map((el, i) => {
-              return (
-                <div className='app__housesSection-filterItem' key={i} onClick={(e) => clickOnFilterItem(e)}>{el}</div>
-              )
-            })
-          }
-          <button onClick={sort}>Search</button>
+        {
+          housesFilterArr.map((el, i) => {
+            return (
+              <div className='app__housesSection-filterItem' key={i} onClick={(e) => clickOnFilterItem(e)}>{el}</div>
+            )
+          })
+        }
+        <button onClick={sort}>Search</button>
 
       </div>
       <h2>Houses found:</h2>
