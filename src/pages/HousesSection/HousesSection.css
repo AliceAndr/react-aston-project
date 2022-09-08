@@ -39,6 +39,40 @@
   text-align: center;
 }
 
+.app__housesSection-filterWrap {
+  display: flex;
+  flex-direction: row;
+  min-width: 900px;
+  margin-bottom: 30px;
+  font-family: var(--font-base);
+}
+
+.app__housesSection-filterWrap button {
+  width: 130px;
+  border: 1px solid gray;
+  background-color: rgb(193, 193, 193);
+  font-size: 16px;
+  font-family: var(--font-base);
+  margin-right: 30px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.app__housesSection-filterItem {
+  background-color: rgba(61, 61, 61, 0.827);
+  color: var(--color-white);
+  margin-right: 30px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.app__housesSection-filterItem.active {
+  background-color: var(--color-golden);
+}
+
 .app__housesSection-ul {
   width: 80%;
   color: var(--color-white);
@@ -67,6 +101,7 @@
   outline: none;
 }
 
-.app__housesSection-input:hover {
+.app__housesSection-input:hover, 
+.app__housesSection-filterWrap button:hover {
   background-color: rgb(233, 233, 233);
 }

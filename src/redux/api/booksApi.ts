@@ -11,7 +11,6 @@ export const booksApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://anapioficeandfire.com/api/books/' }),
   endpoints: (build) => ({
     getAllBooks: build.query<Record<string, any>[], void>({
-      // query: (limit = '') => `goods?${limit && `_limit=${limit}`}`,
       query: () => '',
     }),
     getOneBook: build.query<IBookResponse, string>({

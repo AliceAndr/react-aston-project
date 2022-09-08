@@ -4,9 +4,7 @@ import './HousePage.css';
 
 export const HousePage = () => {
   const params = useParams<{ name?: string }>();
-  const { data, isLoading } = useGetOneHouseQuery(params.name as string);
-
-  console.log(data, 'here')
+  const { data } = useGetOneHouseQuery(params.name as string);
 
   return (
     <div className="app__bookpage">

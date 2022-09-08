@@ -1,15 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSearchHousesQuery } from "../../redux/api/housesApi";
-// import './BooksSearchResults.css';
 
 type HousesSearchResultsProps = {
   query: string
 };
 
 export const HousesSearchResults: React.FC<HousesSearchResultsProps> = (props) => {
-  const { query} = props
-  
+  const { query } = props
+
   const { data, error, isLoading, isFetching } = useSearchHousesQuery(query);
   const houses = data ?? [];
 
