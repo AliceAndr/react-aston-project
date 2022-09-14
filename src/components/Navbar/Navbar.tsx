@@ -17,13 +17,13 @@ export const Navbar = () => {
   const currentUser = useCurrentUser();
 
   if (currentUser) {
-    isAuth = currentUser.isAuth;
-    username = currentUser.username;
+    currentUser.isAuth && (isAuth = currentUser.isAuth);
+    currentUser.username && (username = currentUser.username);
   }
 
   const logout = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(logOut(currentUser.email));
+    dispatch(logOut(currentUser?.email));
   };
 
   return (
