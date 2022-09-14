@@ -4,6 +4,7 @@
 }
 
 .app__about-text {
+  text-align: center;
   font-family: var(--font-base);
   color: var(--color-white);
 }

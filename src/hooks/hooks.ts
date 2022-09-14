@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../redux/store";
 
@@ -6,13 +7,13 @@ export const useAppDispatch = () => useDispatch<AppDispatch>()
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export const useCurrentUser = () => {
-  const usersFromStore = useAppSelector((state) => state.user);
+  const users = useAppSelector((state) => state.user);
   let currentUser;
 
-  if (usersFromStore) {
-    currentUser = Object.values(usersFromStore).filter(
+  if (users) {
+    currentUser = Object.values(users).find(
       (obj) => obj.isAuth === true
-    )[0];
+    );
   }
 
   if (currentUser) {
@@ -20,4 +21,20 @@ export const useCurrentUser = () => {
   }
 
   return;
+}
+
+export const useDebounce = (value: string, delay: number): string => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
 }

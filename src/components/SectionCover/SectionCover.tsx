@@ -7,7 +7,7 @@ export interface SectionCoverProps {
   alt: string
 }
 
-const SectionCover:React.FC<SectionCoverProps> = ({image, text, alt}) => {
+export const SectionCover: React.FC<SectionCoverProps> = ({ image, text, alt }) => {
   return (
     <div className="app__cover">
       <img className="app__cover-img" src={image} alt={alt} />
@@ -15,5 +15,3 @@ const SectionCover:React.FC<SectionCoverProps> = ({image, text, alt}) => {
     </div>
   )
 }
-
-export default SectionCover;
