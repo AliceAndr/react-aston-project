@@ -6,7 +6,7 @@ type HousesSearchResultsProps = {
   query: string
 };
 
-export const HousesSearchResults: React.FC<HousesSearchResultsProps> = (props) => {
+const HousesSearchResults: React.FC<HousesSearchResultsProps> = (props) => {
   const { query } = props
 
   const { data, error, isLoading, isFetching } = useSearchHousesQuery(query);
@@ -41,3 +41,4 @@ export const HousesSearchResults: React.FC<HousesSearchResultsProps> = (props) =
   return null;
 };
 
+export default HousesSearchResults;

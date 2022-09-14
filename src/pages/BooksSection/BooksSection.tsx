@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useGetAllBooksQuery } from '../../redux/api/booksApi';
-import { BookSearchResults } from '../../components/BooksSearchResults/BooksSearchResults';
 import { useDebounce } from '../../hooks/hooks';
 import { TextParagraph } from '../../components/TextParagraph/TextParagraph';
+import { Loader } from '../../components/Loader/Loader';
 import './BooksSection.css';
+
+const BookSearchResults = React.lazy(() => import('../../components/BooksSearchResults/BooksSearchResults'));
+
 
 export const BooksSection = () => {
   const navigate = useNavigate();
@@ -14,7 +17,7 @@ export const BooksSection = () => {
   const search = useLocation().search
   const bookName = new URLSearchParams(search).get('search');
 
-  const onChange = (e: { target: HTMLInputElement}) => {
+  const onChange = (e: { target: HTMLInputElement }) => {
     setSearchName(e.target.value);
   }
 
@@ -41,7 +44,9 @@ export const BooksSection = () => {
 
       {(debouncedSearchName)
         ?
-        <BookSearchResults searchName={debouncedSearchName} />
+        <Suspense fallback={<Loader />}>
+          <BookSearchResults searchName={debouncedSearchName} />
+        </Suspense>
         :
         <ul className='app__booksSection-ul'>
           {data.map(item =>

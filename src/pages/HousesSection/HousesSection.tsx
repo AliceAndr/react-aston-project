@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { TextParagraph } from '../../components/TextParagraph/TextParagraph';
-import { HousesSearchResults } from '../../components/HousesSearchResults/HousesSearchResults';
 import { housesFilter } from '../../utils/housesFilter';
+import { Loader } from '../../components/Loader/Loader';
 import './HousesSection.css';
+
+const HousesSearchResults = React.lazy(() => import('../../components/HousesSearchResults/HousesSearchResults'));
 
 export const HousesSection = () => {
   const [filterState, setFilterState] = React.useState<Record<string, boolean>>({});
@@ -13,7 +15,7 @@ export const HousesSection = () => {
   const navigate = useNavigate();
   let name = new URLSearchParams(search).get('name');
 
-  const onChange = (e: { target: HTMLInputElement}) => {
+  const onChange = (e: { target: HTMLInputElement }) => {
     setSearchName(e.target.value);
   }
 
@@ -73,7 +75,9 @@ export const HousesSection = () => {
 
       </div>
       <h2>Houses found:</h2>
-      <HousesSearchResults query={query} />
+      <Suspense fallback={<Loader />}>
+        <HousesSearchResults query={query} />
+      </Suspense>
     </div>
   )
 }
