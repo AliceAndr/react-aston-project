@@ -5,6 +5,7 @@
   align-items: center;
   background: var(--color-black);
   padding: 1rem 10rem;
+  position: relative;
 }
 
 .app__navbar-logo {
@@ -67,3 +68,14 @@
   background-color: var(--color-grey);
 }
 
+.mode-icon {
+  cursor: pointer;
+  color: var(--color-white);
+  transform: scale(1.25);
+}
+
+.mode-wrap {
+  position: absolute;
+  left: 24rem;
+  top: 30px;
+}

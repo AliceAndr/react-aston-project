@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import { useAppDispatch, useCurrentUser } from '../../hooks/hooks';
 import { logOut } from '../../redux/slices/userSlice';
+import { ThemeContext } from '../../ThemeProvider';
 import mainLogo from '../../assets/Site-logo.webp';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import './Navbar.css';
 
 
 export const Navbar = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const dispatch = useAppDispatch();
   let isAuth: boolean = false;
   let username: string = '';
@@ -33,6 +37,17 @@ export const Navbar = () => {
           <li className='app__navbar-item'><a href='#favorites'>Favorites</a></li>
           <li className='app__navbar-item'><a href='#history'>History</a></li>
         </ul>
+      }
+
+      {
+        theme === 'light' ?
+          <div onClick={toggleTheme} className="mode-wrap">
+            <DarkModeIcon className='mode-icon' />
+          </div>
+          :
+          <div onClick={toggleTheme} className="mode-wrap">
+            <LightModeIcon className='mode-icon' />
+          </div>
       }
 
       {isAuth ? (
