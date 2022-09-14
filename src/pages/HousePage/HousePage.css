@@ -1,0 +1,18 @@
+.app_favorite-button {
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  font-family: var(--font-base);
+  cursor: pointer;
+  margin-top: 50px;
+  color: var(--color-golden);
+  transition: 0.3s;
+}
+
+.app_favorite-button:hover {
+  color: rgba(172, 158, 99, 0.623);
+}
+
+.app_favorite-p {
+  margin-right: 10px;
+}

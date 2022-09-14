@@ -7,12 +7,12 @@
 
 .app__cover-img {
   filter: brightness(45%);
-  width: 340px;
-  height: 500px;
+  width: 430px;
+  height: 550px;
   object-fit: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
-  margin: 3rem 1rem;
+  margin: 3rem 2rem;
 }
 
 .app__cover-h2 {

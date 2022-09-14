@@ -34,7 +34,7 @@ export const Navbar = () => {
 
       {isAuth &&
         <ul className='app__navbar-links'>
-          <li className='app__navbar-item'><a href='#favorites'>Favorites</a></li>
+          <Link to='/favorites'><li className='app__navbar-item'>Favorites</li></Link>
           <li className='app__navbar-item'><a href='#history'>History</a></li>
         </ul>
       }
