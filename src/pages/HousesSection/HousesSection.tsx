@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { TextParagraph } from '../../components/TextParagraph/TextParagraph';
 import { HousesSearchResults } from '../../components/HousesSearchResults/HousesSearchResults';
-import { housesFilterArr } from '../../utils/housesFilterArr';
+import { housesFilter } from '../../utils/housesFilter';
 import './HousesSection.css';
 
 export const HousesSection = () => {
   const [filterState, setFilterState] = React.useState<Record<string, boolean>>({});
   const [query, setQuery] = React.useState('');
-
   const [searchName, setSearchName] = useState("");
+  const search = useLocation().search;
+  const navigate = useNavigate();
+  let name = new URLSearchParams(search).get('name');
 
-  let params = new URLSearchParams(document.location.search);
-  let name = params.get("name");
-
-  const onChange = (e: React.SyntheticEvent) => {
-    const target = e.target as HTMLInputElement;
-    setSearchName(target.value);
+  const onChange = (e: { target: HTMLInputElement}) => {
+    setSearchName(e.target.value);
   }
 
   const clickOnFilterItem = (e: React.MouseEvent<HTMLElement>) => {
@@ -36,16 +35,16 @@ export const HousesSection = () => {
     }
   }
 
-  const sort = () => {
-    const resaultQueryParams = [];
-    resaultQueryParams.push(`name=${searchName}`);
+  const applyFilters = () => {
+    const resultQueryParams = [];
+    resultQueryParams.push(`name=${searchName}`);
     for (let key in filterState) {
       if (filterState[key]) {
-        resaultQueryParams.push(`${key}=true`);
+        resultQueryParams.push(`${key}=true`);
       }
     }
-    window.history.replaceState({}, '', `?${resaultQueryParams.join('&')}`);
-    setQuery(resaultQueryParams.join('&'));
+    navigate(`?${resultQueryParams.join('&')}`);
+    setQuery(resultQueryParams.join('&'));
   }
 
   React.useEffect(() => {
@@ -64,13 +63,13 @@ export const HousesSection = () => {
       <div className="app__housesSection-filterWrap">
 
         {
-          housesFilterArr.map((el, i) => {
+          housesFilter.map((el, i) => {
             return (
-              <div className='app__housesSection-filterItem' key={i} onClick={(e) => clickOnFilterItem(e)}>{el}</div>
+              <div className='app__housesSection-filterItem' key={i} onClick={clickOnFilterItem}>{el}</div>
             )
           })
         }
-        <button onClick={sort}>Search</button>
+        <button onClick={applyFilters}>Search</button>
 
       </div>
       <h2>Houses found:</h2>

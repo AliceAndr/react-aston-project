@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSearchHousesQuery } from "../../redux/api/housesApi";
+import { IHousesResponse, useSearchHousesQuery } from "../../redux/api/housesApi";
 
 type HousesSearchResultsProps = {
   query: string
@@ -30,15 +30,14 @@ export const HousesSearchResults: React.FC<HousesSearchResultsProps> = (props) =
   if (houses.length >= 1) {
     return (
       <ul className='app__booksSection-ul'>
-        {houses.map((item: any, index: number) =>
+        {houses.map((item: IHousesResponse, index: number) =>
           <li className='app__booksSection-li' key={index}>
             <Link to={`${item.name}`}>{item.name}</Link>
           </li>
         )}
       </ul>
     );
-  } else {
-    return null;
   }
+  return null;
 };
 

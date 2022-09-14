@@ -37,7 +37,6 @@ export const BookSearchResults: React.FC<BookSearchResultsProps> = (props) => {
         )}
       </ul>
     );
-  } else {
-    return null;
   }
+  return null;
 };

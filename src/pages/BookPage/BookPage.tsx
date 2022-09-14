@@ -3,8 +3,8 @@ import { useGetOneBookQuery } from "../../redux/api/booksApi";
 import './BookPage.css';
 
 export const BookPage = () => {
-  const params = useParams<{ name?: string }>();
-  const { data } = useGetOneBookQuery(params.name as string);
+  const paramsName: string = useParams().name || '';
+  const { data } = useGetOneBookQuery(paramsName);
   return (
     <div className="app__bookpage">
       <h1>Book Info:</h1>
