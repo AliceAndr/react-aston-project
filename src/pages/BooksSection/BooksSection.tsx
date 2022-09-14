@@ -2,7 +2,7 @@ import React, { useState, Suspense } from 'react';
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useGetAllBooksQuery } from '../../redux/api/booksApi';
 import { useDebounce } from '../../hooks/hooks';
-import { TextParagraph } from '../../components/TextParagraph/TextParagraph';
+import TextParagraph from '../../components/TextParagraph/TextParagraph';
 import { Loader } from '../../components/Loader/Loader';
 import './BooksSection.css';
 

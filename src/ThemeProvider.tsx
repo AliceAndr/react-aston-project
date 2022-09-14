@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import { PropsWithChildren } from 'react';
 
 type Theme = string;
-type ThemeContext = { theme: Theme; toggleTheme: () => void };
+type ThemeContextType = { theme: Theme; toggleTheme: () => void };
 
-export const ThemeContext = React.createContext<ThemeContext>(
-  {} as ThemeContext
-);
+export const ThemeContext = React.createContext<ThemeContextType>({} as ThemeContextType);
 
-export const ThemeProvider: React.FC<PropsWithChildren> = ({ children  }) => {
+export const ThemeProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>("dark");
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");

@@ -27,7 +27,7 @@ const userSlice = createSlice({
       const currentUser = JSON.parse(localStorage.getItem('user') ?? '').email
       const userState = current(state[currentUser])
       let flagDeletedOrAdd = ""
-      
+
       if (userState?.favorites?.length === 0) {
         flagDeletedOrAdd = 'add'
       } else {

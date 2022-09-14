@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { TextParagraph } from "../../components/TextParagraph/TextParagraph";
-import { SectionCover } from "../../components/SectionCover/SectionCover";
+import TextParagraph from "../../components/TextParagraph/TextParagraph";
+import SectionCover from "../../components/SectionCover/SectionCover";
 import './Home.css';
 
 import housesCover from '../../assets/houses-min.jpg';

@@ -1,6 +1,6 @@
 import React, { useState, Suspense } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { TextParagraph } from '../../components/TextParagraph/TextParagraph';
+import TextParagraph from '../../components/TextParagraph/TextParagraph';
 import { housesFilter } from '../../utils/housesFilter';
 import { Loader } from '../../components/Loader/Loader';
 import './HousesSection.css';
