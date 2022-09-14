@@ -22,7 +22,7 @@ const userSlice = createSlice({
       state[newUser] = action.payload;
     },
 
-    addFavorite(state, action) {
+     toggleFavorite(state, action) {
       const newFavorite = action.payload as { name: string, url: string };
       const currentUser = JSON.parse(localStorage.getItem('user') ?? '').email
       const userState = current(state[currentUser])
@@ -67,7 +67,7 @@ export const {
   signIn,
   logOut,
   addUser,
-  addFavorite,
+  toggleFavorite,
   deleteFavorite
 } = userSlice.actions;
 

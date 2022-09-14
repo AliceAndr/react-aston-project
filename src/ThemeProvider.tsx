@@ -8,12 +8,12 @@ export const ThemeContext = React.createContext<ThemeContextType>({} as ThemeCon
 
 export const ThemeProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>("dark");
+
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
   const backgroundColor = theme === "dark" ? "rgba(26, 26, 26, 0.8)" : "#fff";
-
   document.body.style.backgroundColor = backgroundColor;
 
   return (

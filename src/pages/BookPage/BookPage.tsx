@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useGetOneBookQuery } from "../../redux/api/booksApi";
 import { useAppDispatch } from "../../hooks/hooks";
-import { addFavorite } from "../../redux/slices/userSlice";
+import { toggleFavorite } from "../../redux/slices/userSlice";
 import { useCurrentUser } from "../../hooks/hooks";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -15,7 +15,7 @@ export const BookPage = () => {
   const isInFavorite = user?.favorites?.find(el => el.name === paramsName);
 
   const toggleFavorites = () => {
-    dispatch(addFavorite({ name: data?.name, url: window.location.href }))
+    dispatch(toggleFavorite({ name: data?.name, url: window.location.href }))
   }
 
   return (

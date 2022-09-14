@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import './SectionCover.css';
 
-function SectionCover ({ image, text, alt }) {
+function SectionCover({ image, text, alt }) {
   return (
     <div className="app__cover">
       <img className="app__cover-img" src={image} alt={alt} />
