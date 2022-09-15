@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
-import { TextParagraph } from "../../components/TextParagraph/TextParagraph";
-import { SectionCover } from "../../components/SectionCover/SectionCover";
+import TextParagraph from "../../components/TextParagraph/TextParagraph";
+import SectionCover from "../../components/SectionCover/SectionCover";
 import './Home.css';
 
 import housesCover from '../../assets/houses-min.jpg';
-import charactersCover from '../../assets/characters-min.jpg';
 import booksCover from '../../assets/books-min.jpg';
 
 export const Home = () => {
@@ -16,7 +15,6 @@ export const Home = () => {
 
       <div className="app__home-covers">
         <Link to='/houses'><SectionCover image={housesCover} text="The Great Houses" alt="Houses of Westeros and Essos" /></Link>
-        <SectionCover image={charactersCover} text="Characters" alt="Heroes of Westeros and Essos" />
         <Link to='/books'><SectionCover image={booksCover} text="Book Series" alt="Books" /></Link>
       </div>
     </div>

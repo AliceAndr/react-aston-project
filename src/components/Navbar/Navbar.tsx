@@ -1,25 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import { useAppDispatch, useCurrentUser } from '../../hooks/hooks';
 import { logOut } from '../../redux/slices/userSlice';
+import { ThemeContext } from '../../ThemeProvider';
 import mainLogo from '../../assets/Site-logo.webp';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import './Navbar.css';
 
 
 export const Navbar = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const dispatch = useAppDispatch();
   let isAuth: boolean = false;
   let username: string = '';
   const currentUser = useCurrentUser();
 
   if (currentUser) {
-    isAuth = currentUser.isAuth;
-    username = currentUser.username;
+    currentUser.isAuth && (isAuth = currentUser.isAuth);
+    currentUser.username && (username = currentUser.username);
   }
 
   const logout = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(logOut(currentUser.email));
+    dispatch(logOut(currentUser?.email));
   };
 
   return (
@@ -30,9 +34,20 @@ export const Navbar = () => {
 
       {isAuth &&
         <ul className='app__navbar-links'>
-          <li className='app__navbar-item'><a href='#favorites'>Favorites</a></li>
+          <Link to='/favorites'><li className='app__navbar-item'>Favorites</li></Link>
           <li className='app__navbar-item'><a href='#history'>History</a></li>
         </ul>
+      }
+
+      {
+        theme === 'light' ?
+          <div onClick={toggleTheme} className="mode-wrap">
+            <DarkModeIcon className='mode-icon' />
+          </div>
+          :
+          <div onClick={toggleTheme} className="mode-wrap">
+            <LightModeIcon className='mode-icon' />
+          </div>
       }
 
       {isAuth ? (

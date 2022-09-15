@@ -1,33 +1,36 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, Suspense } from 'react';
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useGetAllBooksQuery } from '../../redux/api/booksApi';
-import { BookSearchResults } from '../../components/BooksSearchResults/BooksSearchResults';
 import { useDebounce } from '../../hooks/hooks';
-import { TextParagraph } from '../../components/TextParagraph/TextParagraph';
+import TextParagraph from '../../components/TextParagraph/TextParagraph';
+import { Loader } from '../../components/Loader/Loader';
 import './BooksSection.css';
 
+const BookSearchResults = React.lazy(() => import('../../components/BooksSearchResults/BooksSearchResults'));
+
+
 export const BooksSection = () => {
+  const navigate = useNavigate();
   const { data = [] } = useGetAllBooksQuery();
   const [searchName, setSearchName] = useState("");
   const debouncedSearchName = useDebounce(searchName, 1500);
-  const myUrl = new URL(window.location.href)
-  const param = myUrl.searchParams.get('search');
+  const search = useLocation().search
+  const bookName = new URLSearchParams(search).get('search');
 
-  const onChange = (e: React.SyntheticEvent) => {
-    const target = e.target as HTMLInputElement;
-    setSearchName(target.value);
+  const onChange = (e: { target: HTMLInputElement }) => {
+    setSearchName(e.target.value);
   }
 
   React.useEffect(() => {
     if (searchName.length > 0) {
-      window.history.pushState({}, '', `?search=${debouncedSearchName}`);
+      navigate(`?search=${debouncedSearchName}`)
     }
   }, [debouncedSearchName]
   )
 
   React.useEffect(() => {
-    setSearchName(param || '');
-  }, []);
+    setSearchName(bookName || '');
+  }, [bookName]);
 
   return (
     <div className='app__booksSection'>
@@ -41,7 +44,9 @@ export const BooksSection = () => {
 
       {(debouncedSearchName)
         ?
-        <BookSearchResults searchName={debouncedSearchName} />
+        <Suspense fallback={<Loader />}>
+          <BookSearchResults searchName={debouncedSearchName} />
+        </Suspense>
         :
         <ul className='app__booksSection-ul'>
           {data.map(item =>

@@ -7,7 +7,7 @@ type BookSearchResultsProps = {
   searchName: string;
 };
 
-export const BookSearchResults: React.FC<BookSearchResultsProps> = (props) => {
+const BookSearchResults: React.FC<BookSearchResultsProps> = (props) => {
   const { searchName } = props;
   const { data, error, isLoading, isFetching } = useSearchBookQuery(searchName);
   const books = data ?? [];
@@ -37,7 +37,8 @@ export const BookSearchResults: React.FC<BookSearchResultsProps> = (props) => {
         )}
       </ul>
     );
-  } else {
-    return null;
   }
+  return null;
 };
+
+export default BookSearchResults;
