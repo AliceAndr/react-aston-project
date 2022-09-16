@@ -1,0 +1,20 @@
+.app__history {
+  width: 100%;
+  height: fit-content;
+  min-height: 100vh;
+  display: flex;
+  background: rgba(26, 26, 26, 0.85);
+  padding: 1rem 10rem;
+  align-items: center;
+  flex-direction: column;
+}
+
+.app__history-h1 {
+  width: 80%;
+  text-align: center;
+  font-family: var(--font-alt);
+  color: var(--color-golden);
+  font-size: 30px;
+  font-weight: normal;
+  margin: 10px;
+}

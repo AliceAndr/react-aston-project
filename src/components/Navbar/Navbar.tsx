@@ -29,7 +29,7 @@ export const Navbar = () => {
       {isAuth &&
         <ul className='app__navbar-links'>
           <Link to='/favorites'><li className='app__navbar-item'>Favorites</li></Link>
-          <li className='app__navbar-item'><a href='#history'>History</a></li>
+          <Link to='/history'><li className='app__navbar-item'>History</li></Link>
         </ul>
       }
 
@@ -48,7 +48,7 @@ export const Navbar = () => {
         <div className='app__navbar-login'>
           <div className='p__opensans'>{username}</div>
           <div className='app__navbar-login-separator'></div>
-          <div onClick={logout} className='p__opensans'>Log Out</div>
+          <div onClick={logout} className='p__opensans logout'>Log Out</div>
         </div>
       ) : (
         <div className='app__navbar-login'>

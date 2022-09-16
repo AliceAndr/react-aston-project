@@ -12,6 +12,7 @@ import { HousePage } from './pages/HousePage/HousePage';
 import { ErrorFallback } from './components/ErrorFallback/ErrorFallback';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { FavoritesPage } from './pages/FavoritesPage/FavoritesPage';
+import { HistoryPage } from './pages/HistoryPage/HistoryPage';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         } />
         <Route element={<ProtectedRoute />}>
           <Route path='/favorites' element={<FavoritesPage />} />
+          <Route path='/history' element={<HistoryPage/>} />
         </Route>
       </Routes>
       <Footer />

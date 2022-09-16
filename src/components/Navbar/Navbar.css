@@ -79,3 +79,7 @@
   left: 24rem;
   top: 30px;
 }
+
+.logout {
+  cursor: pointer;
+}
