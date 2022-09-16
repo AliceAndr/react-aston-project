@@ -2,14 +2,14 @@ import React from "react";
 import { useAppDispatch } from "../../hooks/hooks";
 import { deleteFavorite } from "../../redux/slices/userSlice";
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
-import { IUser } from "../../hooks/hooks";
+import { User } from "../../redux/slices/userSlice";
 import { useAppSelector, useCurrentUser } from "../../hooks/hooks";
 import './FavoritesPage.css';
 
 export const FavoritesPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const usersFromState = useAppSelector(state => state.user)
-  let curentFavoritsUser: IUser = {};
+  let curentFavoritsUser: User = {};
   const userIsAuth = useCurrentUser();
 
   if (userIsAuth?.email) {

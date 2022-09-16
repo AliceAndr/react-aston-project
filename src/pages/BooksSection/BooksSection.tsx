@@ -10,12 +10,14 @@ const BookSearchResults = React.lazy(() => import('../../components/BooksSearchR
 
 
 export const BooksSection = () => {
-  const navigate = useNavigate();
-  const { data = [] } = useGetAllBooksQuery();
-  const [searchName, setSearchName] = useState("");
-  const debouncedSearchName = useDebounce(searchName, 1500);
   const search = useLocation().search
   const bookName = new URLSearchParams(search).get('search');
+  const navigate = useNavigate();
+
+  const { data = [], isLoading } = useGetAllBooksQuery();
+  const [searchName, setSearchName] = useState(bookName || '');
+  const debouncedSearchName = useDebounce(searchName, 1500);
+
 
   const onChange = (e: { target: HTMLInputElement }) => {
     setSearchName(e.target.value);
@@ -27,10 +29,6 @@ export const BooksSection = () => {
     }
   }, [debouncedSearchName]
   )
-
-  React.useEffect(() => {
-    setSearchName(bookName || '');
-  }, [bookName]);
 
   return (
     <div className='app__booksSection'>
@@ -47,14 +45,17 @@ export const BooksSection = () => {
         <Suspense fallback={<Loader />}>
           <BookSearchResults searchName={debouncedSearchName} />
         </Suspense>
-        :
-        <ul className='app__booksSection-ul'>
-          {data.map(item =>
-            <li className='app__booksSection-li' key={item.isbn}>
-              <Link to={`${item.name}`}>{item.name}</Link>
-            </li>
-          )}
-        </ul>
+        : isLoading
+          ?
+          <Loader />
+          :
+          <ul className='app__booksSection-ul'>
+            {data.map(item =>
+              <li className='app__booksSection-li' key={item.isbn}>
+                <Link to={`${item.name}`}>{item.name}</Link>
+              </li>
+            )}
+          </ul>
       }
 
     </div>

@@ -1,9 +1,18 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import { IUser } from "../../hooks/hooks";
+
+export interface User {
+  [prop: string]: any;
+  username?: string,
+  email?: string,
+  password?: string,
+  isAuth?: boolean,
+  favorites?: {name:string, url: string}[],
+  searchParams?: string[]
+}
 
 const userSlice = createSlice({
   name: "user",
-  initialState: {} as Record<string, IUser>,
+  initialState: {} as Record<string, User>,
   reducers: {
     signIn(state, action) {
       const currentUser = action.payload;

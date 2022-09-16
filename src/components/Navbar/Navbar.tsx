@@ -12,18 +12,12 @@ import './Navbar.css';
 export const Navbar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const dispatch = useAppDispatch();
-  let isAuth: boolean = false;
-  let username: string = '';
-  const currentUser = useCurrentUser();
 
-  if (currentUser) {
-    currentUser.isAuth && (isAuth = currentUser.isAuth);
-    currentUser.username && (username = currentUser.username);
-  }
+  const { isAuth, username, email } = useCurrentUser() || {}
 
   const logout = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(logOut(currentUser?.email));
+    dispatch(logOut(email));
   };
 
   return (

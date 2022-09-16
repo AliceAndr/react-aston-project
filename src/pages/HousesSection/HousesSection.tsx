@@ -8,13 +8,15 @@ import './HousesSection.css';
 const HousesSearchResults = React.lazy(() => import('../../components/HousesSearchResults/HousesSearchResults'));
 
 export const HousesSection = () => {
-  const [filterState, setFilterState] = React.useState<Record<string, boolean>>({});
-  const [query, setQuery] = React.useState('');
-  const [searchName, setSearchName] = useState("");
+  const urlQuery = window.location.href.split('?')[1];
   const search = useLocation().search;
-  const navigate = useNavigate();
-  let name = new URLSearchParams(search).get('name');
+  const name = new URLSearchParams(search).get('name');
 
+  const [filterState, setFilterState] = React.useState<Record<string, boolean>>({});
+  const [query, setQuery] = React.useState(urlQuery);
+  const [searchName, setSearchName] = useState(name || '');
+  const navigate = useNavigate();
+  
   const onChange = (e: { target: HTMLInputElement }) => {
     setSearchName(e.target.value);
   }
@@ -48,12 +50,6 @@ export const HousesSection = () => {
     navigate(`?${resultQueryParams.join('&')}`);
     setQuery(resultQueryParams.join('&'));
   }
-
-  React.useEffect(() => {
-    const urlQuery = window.location.href.split('?')[1];
-    setQuery(urlQuery);
-    setSearchName(name || '');
-  }, []);
 
   return (
     <div className='app__housesSection'>

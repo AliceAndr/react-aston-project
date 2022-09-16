@@ -10,7 +10,7 @@ import { BooksSection } from './pages/BooksSection/BooksSection';
 import { HousesSection } from './pages/HousesSection/HousesSection';
 import { HousePage } from './pages/HousePage/HousePage';
 import { ErrorFallback } from './components/ErrorFallback/ErrorFallback';
-import { ProtectedRoutes } from './components/ProtectedRoutes';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { FavoritesPage } from './pages/FavoritesPage/FavoritesPage';
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
             <HousePage />
           </ErrorBoundary>
         } />
-        <Route element={<ProtectedRoutes />}>
+        <Route element={<ProtectedRoute />}>
           <Route path='/favorites' element={<FavoritesPage />} />
         </Route>
       </Routes>
