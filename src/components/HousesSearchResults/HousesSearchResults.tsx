@@ -9,7 +9,6 @@ type HousesSearchResultsProps = {
 
 const HousesSearchResults: React.FC<HousesSearchResultsProps> = (props) => {
   const { query } = props
-
   const { data, error, isLoading, isFetching } = useSearchHousesQuery(query);
   const houses = data ?? [];
 

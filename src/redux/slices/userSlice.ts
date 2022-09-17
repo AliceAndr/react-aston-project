@@ -1,4 +1,34 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { historyAPI } from '../api/historyApi';
+
+
+export const postHistory = createAsyncThunk(
+  "user/postHistory",
+  async (args: { url: string, userEmail: string }, thunkAPI: any) => {
+    const { url, userEmail } = args;
+    const currentUser = thunkAPI.getState().user[userEmail];
+
+    if (currentUser) {
+      return await historyAPI.post(currentUser, url);
+    } else { return }
+  }
+);
+
+export const getHistory = createAsyncThunk(
+  "user/getHistory",
+  async (userEmail: string, thunkAPI: any) => {
+    const currentUser: User = thunkAPI.getState().user[userEmail];
+    return await historyAPI.get(currentUser);
+  }
+);
+
+export const deleteHistory = createAsyncThunk(
+  "user/deleteHistory",
+  async (userEmail: string, thunkAPI: any) => {
+    const currentUser: User = thunkAPI.getState().user[userEmail];
+    return await historyAPI.delete(currentUser);
+  }
+);
 
 export interface User {
   [prop: string]: any;
@@ -6,8 +36,8 @@ export interface User {
   email?: string,
   password?: string,
   isAuth?: boolean,
-  favorites?: {name:string, url: string}[],
-  searchParams?: string[]
+  favorites?: { name: string, url: string }[],
+  historySearch?: string[]
 }
 
 const userSlice = createSlice({
@@ -31,7 +61,7 @@ const userSlice = createSlice({
       state[newUser] = action.payload;
     },
 
-     toggleFavorite(state, action) {
+    toggleFavorite(state, action) {
       const newFavorite = action.payload as { name: string, url: string };
       const currentUser = JSON.parse(localStorage.getItem('user') ?? '').email
       const userState = current(state[currentUser])
@@ -68,8 +98,31 @@ const userSlice = createSlice({
       const userState = current(state[currentUser])
       const newFavorites = userState.favorites?.filter(el => el.name !== deleteFavorite.name)
       state[currentUser].favorites = newFavorites;
-    }
+    },
   },
+
+  extraReducers: (builder) => {
+    builder.addCase(postHistory.fulfilled, (state, action) => {
+      const userEmail = action.payload?.currentUser.email;
+      if (userEmail) {
+        state[userEmail].historySearch = action.payload?.historySearchCopy;
+      }
+    });
+
+    builder.addCase(getHistory.fulfilled, (state, action) => {
+      const userEmail = action.payload.currentUser.email;
+      if (userEmail) {
+        state.user[userEmail].historySearch = action.payload.links;
+      }
+    });
+
+    builder.addCase(deleteHistory.fulfilled, (state, action) => {
+      const userEmail = action.payload.currentUser.email;
+      if (userEmail) {
+        state[userEmail].historySearch = [];
+      }
+    });
+  }
 });
 
 export const {

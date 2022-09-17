@@ -18,3 +18,56 @@
   font-weight: normal;
   margin: 10px;
 }
+
+.app__history-empty-p {
+  width: 80%;
+  text-align: center;
+  font-family: var(--font-alt);
+  color: var(--color-golden);
+  font-size: 30px;
+  margin: 10px;
+  margin-top: 100px;
+}
+
+.app__history-ul {
+  width: 80%;
+  color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(61, 61, 61, 0.827);
+  padding: 30px 60px;
+  margin: 1rem;
+  border-radius: 10px;
+}
+
+.app__history-li {
+  display: flex;
+  flex-direction: row;
+  font-family: var(--font-base);
+  list-style: none;
+  font-size: 18px;
+  margin: 10px 0;
+  transition: .4s;
+}
+
+.app__history-li:hover {
+  border-bottom: 1px solid var(--color-golden);
+}
+
+.app__history-clear {
+  width: 130px;
+  border: 1px solid gray;
+  background-color: rgb(193, 193, 193);
+  font-size: 16px;
+  font-family: var(--font-base);
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .3s;
+  margin-bottom: 15px;
+}
+
+.app__history-clear:hover {
+  background-color: rgb(233, 233, 233);
+}
