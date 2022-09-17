@@ -17,12 +17,12 @@ export const HistoryPage = () => {
     return (
       <div className="app__history">
         <h1 className="app__history-h1">Search History</h1>
-        <ul className="app__history-ul">
+        <div className="app__history-wrap">
           <button onClick={clearHistory} className="app__history-clear">Clear History</button>
           {
-            links.map((link, i) => <li className='app__history-li' key={i}>{link}</li>)
+            links.map((link, i) => <a href={link} className='app__history-a' key={i}>{link}</a>)
           }
-        </ul>
+        </div>
       </div>
     )
   } else {

@@ -1,16 +1,20 @@
 import React, { useState, Suspense } from 'react';
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useGetAllBooksQuery } from '../../redux/api/booksApi';
-import { useDebounce } from '../../hooks/hooks';
+import { useAppDispatch, useCurrentUser, useDebounce } from '../../hooks/hooks';
 import TextParagraph from '../../components/TextParagraph/TextParagraph';
 import { Loader } from '../../components/Loader/Loader';
+import { postHistory } from '../../redux/slices/userSlice';
 import './BooksSection.css';
 
 const BookSearchResults = React.lazy(() => import('../../components/BooksSearchResults/BooksSearchResults'));
 
 
 export const BooksSection = () => {
-  const search = useLocation().search
+  const dispatch = useAppDispatch();
+  const baseUrl = window.location.href.split('?')[0];
+  const userEmail = useCurrentUser()?.email as string;
+  const search = useLocation().search;
   const bookName = new URLSearchParams(search).get('search');
   const navigate = useNavigate();
 
@@ -25,7 +29,9 @@ export const BooksSection = () => {
 
   React.useEffect(() => {
     if (searchName.length > 0) {
-      navigate(`?search=${debouncedSearchName}`)
+      const url = `${baseUrl}?search=${debouncedSearchName}`;
+      dispatch(postHistory({ url, userEmail }));
+      navigate(`?search=${debouncedSearchName}`);
     }
   }, [debouncedSearchName]
   )

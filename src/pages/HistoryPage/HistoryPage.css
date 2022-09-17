@@ -29,7 +29,7 @@
   margin-top: 100px;
 }
 
-.app__history-ul {
+.app__history-wrap {
   width: 80%;
   color: var(--color-white);
   display: flex;
@@ -41,7 +41,7 @@
   border-radius: 10px;
 }
 
-.app__history-li {
+.app__history-a {
   display: flex;
   flex-direction: row;
   font-family: var(--font-base);
@@ -51,7 +51,7 @@
   transition: .4s;
 }
 
-.app__history-li:hover {
+.app__history-a:hover {
   border-bottom: 1px solid var(--color-golden);
 }
 
