@@ -13,7 +13,7 @@ export const HousePage = () => {
   const { name: paramsName = '' } = useParams();
   const { data, isLoading } = useGetOneHouseQuery(paramsName);
   const user = useCurrentUser();
-  const isInFavorite = user?.favorites?.find((el: {name: string, url: string}) => el.name === paramsName);
+  const isInFavorite = user?.favorites?.find((el: { name: string, url: string }) => el.name === paramsName);
 
   const toggleFavorites = () => {
     dispatch(toggleFavorite({ name: data?.name, url: window.location.href }))

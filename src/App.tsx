@@ -36,7 +36,7 @@ function App() {
         } />
         <Route element={<ProtectedRoute />}>
           <Route path='/favorites' element={<FavoritesPage />} />
-          <Route path='/history' element={<HistoryPage/>} />
+          <Route path='/history' element={<HistoryPage />} />
         </Route>
       </Routes>
       <Footer />

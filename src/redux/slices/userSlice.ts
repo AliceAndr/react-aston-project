@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import { historyAPI } from '../api/historyApi';
+import { historyApi } from '../api/historyApi';
 
 
 export const postHistory = createAsyncThunk(
@@ -9,7 +9,7 @@ export const postHistory = createAsyncThunk(
     const currentUser = thunkAPI.getState().user[userEmail];
 
     if (currentUser) {
-      return await historyAPI.post(currentUser, url);
+      return await historyApi.post(currentUser, url);
     } else { return }
   }
 );
@@ -18,7 +18,7 @@ export const getHistory = createAsyncThunk(
   "user/getHistory",
   async (userEmail: string, thunkAPI: any) => {
     const currentUser: User = thunkAPI.getState().user[userEmail];
-    return await historyAPI.get(currentUser);
+    return await historyApi.get(currentUser);
   }
 );
 
@@ -26,7 +26,7 @@ export const deleteHistory = createAsyncThunk(
   "user/deleteHistory",
   async (userEmail: string, thunkAPI: any) => {
     const currentUser: User = thunkAPI.getState().user[userEmail];
-    return await historyAPI.delete(currentUser);
+    return await historyApi.delete(currentUser);
   }
 );
 

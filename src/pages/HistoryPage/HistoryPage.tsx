@@ -1,4 +1,3 @@
-import React from "react";
 import { useAppSelector, useCurrentUser, useAppDispatch } from "../../hooks/hooks";
 import { User } from "../../redux/slices/userSlice";
 import { deleteHistory } from "../../redux/slices/userSlice";
