@@ -68,7 +68,7 @@ export const SignUp = () => {
       password: values.password,
       isAuth: false,
       favorites: [],
-      searchParams: [],
+      historySearch: [],
     };
 
     dispatch(addUser(newUser));

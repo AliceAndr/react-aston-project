@@ -1,10 +1,12 @@
+import React, { Suspense } from "react";
 import { Link } from "react-router-dom";
 import TextParagraph from "../../components/TextParagraph/TextParagraph";
-import SectionCover from "../../components/SectionCover/SectionCover";
-import './Home.css';
-
+import { Loader } from "../../components/Loader/Loader";
 import housesCover from '../../assets/houses-min.jpg';
 import booksCover from '../../assets/books-min.jpg';
+import './Home.css';
+
+const SectionCover = React.lazy(() => import("../../components/SectionCover/SectionCover"));
 
 export const Home = () => {
   return (
@@ -14,8 +16,19 @@ export const Home = () => {
       <TextParagraph text="To find the information you need, please go to the following sections and use the search button. And don't forget to login to use all the site features!" />
 
       <div className="app__home-covers">
-        <Link to='/houses'><SectionCover image={housesCover} text="The Great Houses" alt="Houses of Westeros and Essos" /></Link>
-        <Link to='/books'><SectionCover image={booksCover} text="Book Series" alt="Books" /></Link>
+
+        <Suspense fallback={<Loader />}>
+          <Link to='/houses'>
+            <SectionCover image={housesCover} text="The Great Houses" alt="Houses of Westeros and Essos" />
+          </Link>
+        </Suspense>
+
+        <Suspense fallback={<Loader />}>
+          <Link to='/books'>
+            <SectionCover image={booksCover} text="Book Series" alt="Books" />
+          </Link>
+        </Suspense>
+
       </div>
     </div>
   )

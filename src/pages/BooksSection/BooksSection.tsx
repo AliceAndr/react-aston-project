@@ -1,21 +1,27 @@
 import React, { useState, Suspense } from 'react';
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useGetAllBooksQuery } from '../../redux/api/booksApi';
-import { useDebounce } from '../../hooks/hooks';
+import { useAppDispatch, useCurrentUser, useDebounce } from '../../hooks/hooks';
 import TextParagraph from '../../components/TextParagraph/TextParagraph';
 import { Loader } from '../../components/Loader/Loader';
+import { postHistory } from '../../redux/slices/userSlice';
 import './BooksSection.css';
 
 const BookSearchResults = React.lazy(() => import('../../components/BooksSearchResults/BooksSearchResults'));
 
 
 export const BooksSection = () => {
-  const navigate = useNavigate();
-  const { data = [] } = useGetAllBooksQuery();
-  const [searchName, setSearchName] = useState("");
-  const debouncedSearchName = useDebounce(searchName, 1500);
-  const search = useLocation().search
+  const dispatch = useAppDispatch();
+  const baseUrl = window.location.href.split('?')[0];
+  const userEmail = useCurrentUser()?.email as string;
+  const search = useLocation().search;
   const bookName = new URLSearchParams(search).get('search');
+  const navigate = useNavigate();
+
+  const { data = [], isLoading } = useGetAllBooksQuery();
+  const [searchName, setSearchName] = useState(bookName || '');
+  const debouncedSearchName = useDebounce(searchName, 1500);
+
 
   const onChange = (e: { target: HTMLInputElement }) => {
     setSearchName(e.target.value);
@@ -23,14 +29,12 @@ export const BooksSection = () => {
 
   React.useEffect(() => {
     if (searchName.length > 0) {
-      navigate(`?search=${debouncedSearchName}`)
+      const url = `${baseUrl}?search=${debouncedSearchName}`;
+      dispatch(postHistory({ url, userEmail }));
+      navigate(`?search=${debouncedSearchName}`);
     }
   }, [debouncedSearchName]
   )
-
-  React.useEffect(() => {
-    setSearchName(bookName || '');
-  }, [bookName]);
 
   return (
     <div className='app__booksSection'>
@@ -47,14 +51,17 @@ export const BooksSection = () => {
         <Suspense fallback={<Loader />}>
           <BookSearchResults searchName={debouncedSearchName} />
         </Suspense>
-        :
-        <ul className='app__booksSection-ul'>
-          {data.map(item =>
-            <li className='app__booksSection-li' key={item.isbn}>
-              <Link to={`${item.name}`}>{item.name}</Link>
-            </li>
-          )}
-        </ul>
+        : isLoading
+          ?
+          <Loader />
+          :
+          <ul className='app__booksSection-ul'>
+            {data.map(item =>
+              <li className='app__booksSection-li' key={item.isbn}>
+                <Link to={`${item.name}`}>{item.name}</Link>
+              </li>
+            )}
+          </ul>
       }
 
     </div>

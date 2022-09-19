@@ -4,16 +4,23 @@ import TextParagraph from '../../components/TextParagraph/TextParagraph';
 import { housesFilter } from '../../utils/housesFilter';
 import { Loader } from '../../components/Loader/Loader';
 import './HousesSection.css';
+import { useAppDispatch, useCurrentUser } from '../../hooks/hooks';
+import { postHistory } from '../../redux/slices/userSlice';
 
 const HousesSearchResults = React.lazy(() => import('../../components/HousesSearchResults/HousesSearchResults'));
 
 export const HousesSection = () => {
-  const [filterState, setFilterState] = React.useState<Record<string, boolean>>({});
-  const [query, setQuery] = React.useState('');
-  const [searchName, setSearchName] = useState("");
+  const dispatch = useAppDispatch()
+  const urlQuery = window.location.href.split('?')[1];
+  const baseUrl = window.location.href.split('?')[0];
   const search = useLocation().search;
+  const name = new URLSearchParams(search).get('name');
+  const userEmail = useCurrentUser()?.email as string;
+
+  const [filterState, setFilterState] = React.useState<Record<string, boolean>>({});
+  const [query, setQuery] = React.useState(urlQuery);
+  const [searchName, setSearchName] = useState(name || '');
   const navigate = useNavigate();
-  let name = new URLSearchParams(search).get('name');
 
   const onChange = (e: { target: HTMLInputElement }) => {
     setSearchName(e.target.value);
@@ -38,22 +45,19 @@ export const HousesSection = () => {
   }
 
   const applyFilters = () => {
-    const resultQueryParams = [];
+    const resultQueryParams: string[] = [];
     resultQueryParams.push(`name=${searchName}`);
     for (let key in filterState) {
       if (filterState[key]) {
         resultQueryParams.push(`${key}=true`);
       }
     }
+    const url = `${baseUrl}?${resultQueryParams.join('&')}`
+    dispatch(postHistory({ url, userEmail }))
     navigate(`?${resultQueryParams.join('&')}`);
     setQuery(resultQueryParams.join('&'));
-  }
 
-  React.useEffect(() => {
-    const urlQuery = window.location.href.split('?')[1];
-    setQuery(urlQuery);
-    setSearchName(name || '');
-  }, []);
+  }
 
   return (
     <div className='app__housesSection'>
