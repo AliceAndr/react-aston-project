@@ -1,6 +1,7 @@
 import { RootState } from './../redux/store';
+import { Middleware } from "redux";
 
-export const checkLoginMiddleware = (store: any) => (next: any) => (action: any) => {
+export const checkLoginMiddleware: Middleware = (store) => (next) => (action) => {
   let result;
   const currentStore: RootState = store.getState();
 

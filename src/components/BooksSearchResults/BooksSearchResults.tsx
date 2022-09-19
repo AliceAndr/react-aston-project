@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSearchBookQuery } from '../../redux/api/booksApi';
+import { useSearchBookQuery, IBookResponse } from '../../redux/api/booksApi';
 import './BooksSearchResults.css';
 
 type BookSearchResultsProps = {
@@ -30,7 +30,7 @@ const BookSearchResults: React.FC<BookSearchResultsProps> = (props) => {
   if (books.length >= 1) {
     return (
       <ul className='app__booksSection-ul'>
-        {books.map((item: any) =>
+        {books.map((item: IBookResponse) =>
           <li className='app__booksSection-li' key={item.isbn}>
             <Link to={`${item.name}`}>{item.name}</Link>
           </li>

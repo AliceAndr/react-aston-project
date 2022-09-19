@@ -16,7 +16,7 @@ export const BookPage = () => {
   const isInFavorite = user?.favorites?.find((el: { name: string, url: string }) => el.name === paramsName);
 
   const toggleFavorites = () => {
-    dispatch(toggleFavorite({ name: data?.name, url: window.location.href }))
+    dispatch(toggleFavorite({ name: data?.name, url: window.location.href, userEmail: user.email }))
   }
 
   if (isLoading) {

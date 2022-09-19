@@ -31,7 +31,7 @@ export const deleteHistory = createAsyncThunk(
 );
 
 export interface User {
-  [prop: string]: any;
+  [prop: string]: any,
   username?: string,
   email?: string,
   password?: string,
@@ -47,13 +47,11 @@ const userSlice = createSlice({
     signIn(state, action) {
       const currentUser = action.payload;
       state[currentUser].isAuth = true;
-      localStorage.setItem('user', JSON.stringify(state[currentUser]));
     },
 
     logOut(state, action) {
       const currentUser = action.payload;
       state[currentUser].isAuth = false;
-      localStorage.removeItem('user')
     },
 
     addUser(state, action) {
@@ -62,16 +60,16 @@ const userSlice = createSlice({
     },
 
     toggleFavorite(state, action) {
-      const newFavorite = action.payload as { name: string, url: string };
-      const currentUser = JSON.parse(localStorage.getItem('user') ?? '').email
-      const userState = current(state[currentUser])
+      const { name, url, userEmail } = action.payload;
+      const newFavorite = { name, url };
+      const userState = current(state[userEmail])
       let flagDeletedOrAdd = ""
 
       if (userState?.favorites?.length === 0) {
         flagDeletedOrAdd = 'add'
       } else {
         userState.favorites?.forEach(el => {
-          if (el.name === newFavorite.name) {
+          if (el.name === name) {
             flagDeletedOrAdd = 'delete'
           } else {
             flagDeletedOrAdd = 'add'
@@ -80,24 +78,20 @@ const userSlice = createSlice({
       }
 
       if (flagDeletedOrAdd === 'add') {
-        console.log('add')
         let newFavorites = userState.favorites;
-        // @ts-ignore
-        newFavorites = [...newFavorites, newFavorite];
-        state[currentUser].favorites = newFavorites;
+        const newFavoritesCopy = [...newFavorites as [], newFavorite];
+        state[userEmail].favorites = newFavoritesCopy;
       } else if (flagDeletedOrAdd === 'delete') {
-        console.log('delete')
-        const newFavorites = userState.favorites?.filter(el => el.name !== newFavorite.name)
-        state[currentUser].favorites = newFavorites;
+        const newFavorites = userState.favorites?.filter(el => el.name !== name)
+        state[userEmail].favorites = newFavorites;
       }
     },
 
     deleteFavorite(state, action) {
-      const deleteFavorite = action.payload as { name: string, url: string };
-      const currentUser = JSON.parse(localStorage.getItem('user') ?? '').email
-      const userState = current(state[currentUser])
-      const newFavorites = userState.favorites?.filter(el => el.name !== deleteFavorite.name)
-      state[currentUser].favorites = newFavorites;
+      const { name, userEmail } = action.payload;
+      const userState = current(state[userEmail])
+      const newFavorites = userState.favorites?.filter(el => el.name !== name)
+      state[userEmail].favorites = newFavorites;
     },
   },
 

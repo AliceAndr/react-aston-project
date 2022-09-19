@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { User } from "../redux/slices/userSlice";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../redux/store";
 
@@ -6,7 +7,7 @@ export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-export const useCurrentUser = () => {
+export const useCurrentUser = (): User => {
   const users = useAppSelector((state) => state.user);
   let currentUser;
 
@@ -20,7 +21,7 @@ export const useCurrentUser = () => {
     return currentUser;
   }
 
-  return;
+  return {};
 }
 
 export const useDebounce = (value: string, delay: number): string => {
