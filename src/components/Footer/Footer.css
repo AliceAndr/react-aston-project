@@ -15,7 +15,7 @@
   margin: 0;
 }
 
-.app__footer p.app__footer-links {
+.app__footer div.app__footer-links {
   font-size: 18px;
   font-weight: bold;
   color: #ffffff;
@@ -24,7 +24,7 @@
   transition: ease .25s;
 }
 
-.app__footer p.app__footer-links a {
+.app__footer div.app__footer-links div {
   display: inline-block;
   line-height: 1.8;
   text-decoration: none;
@@ -32,7 +32,7 @@
   transition: ease .25s;
 }
 
-.app__footer .app__footer-links a:before {
+.app__footer .app__footer-links div:before {
   content: "·";
   font-size: 20px;
   left: 0;
@@ -45,6 +45,7 @@
   content: none;
 }
 
-.app__footer p.app__footer-links a:hover{
+.app__footer div.app__footer-links div:hover{
   text-decoration:underline;
+  cursor: pointer;
 }
