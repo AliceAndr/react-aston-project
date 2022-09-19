@@ -17,7 +17,7 @@ export const FavoritesPage: React.FC = () => {
   }
 
   const deleteFavorites = (el: { name: string, url: string }) => {
-    dispatch(deleteFavorite({ name: el.name, url: el.url }));
+    dispatch(deleteFavorite({ name: el.name, userEmail: userIsAuth.email }));
   }
 
   if (curentFavoritsUser?.favorites?.length === 0) {

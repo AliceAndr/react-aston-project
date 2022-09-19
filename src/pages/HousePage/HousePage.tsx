@@ -16,7 +16,7 @@ export const HousePage = () => {
   const isInFavorite = user?.favorites?.find((el) => el.name === paramsName);
 
   const toggleFavorites = () => {
-    dispatch(toggleFavorite({ name: data?.name, url: window.location.href }))
+    dispatch(toggleFavorite({ name: data?.name, url: window.location.href, userEmail: user.email }))
   }
 
   if (isLoading) {
