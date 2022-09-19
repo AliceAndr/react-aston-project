@@ -79,9 +79,8 @@ const userSlice = createSlice({
 
       if (flagDeletedOrAdd === 'add') {
         let newFavorites = userState.favorites;
-        // @ts-ignore
-        newFavorites = [...newFavorites, newFavorite];
-        state[userEmail].favorites = newFavorites;
+        const newFavoritesCopy = [...newFavorites as [], newFavorite];
+        state[userEmail].favorites = newFavoritesCopy;
       } else if (flagDeletedOrAdd === 'delete') {
         const newFavorites = userState.favorites?.filter(el => el.name !== name)
         state[userEmail].favorites = newFavorites;
