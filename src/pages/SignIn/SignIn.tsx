@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FormInput } from "../../components/FormInput/FormInput";
 import { signIn } from "../../redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { signInInputs } from "../../utils/utils";
 import './SignIn.css';
 
 export const SignIn = () => {
@@ -14,29 +15,6 @@ export const SignIn = () => {
   const navigate = useNavigate();
 
   const user = useAppSelector(state => state.user);
-
-  const inputs = [
-    {
-      id: 1,
-      name: "email",
-      type: "email",
-      placeholder: "Email",
-      errorMessage: "It should be a valid email address!",
-      label: "Email",
-      required: true,
-    },
-    {
-      id: 2,
-      name: "password",
-      type: "password",
-      placeholder: "Password",
-      errorMessage:
-        "Password should be 6-20 characters and include at least 1 letter, 1 number and 1 special character!",
-      label: "Password",
-      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,20}$`,
-      required: true,
-    },
-  ];
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -66,7 +44,7 @@ export const SignIn = () => {
       <div className="app__signin-form">
         <form onSubmit={handleSubmit}>
           <h1 className="app__signin-form-h1">Happy to see you back! Please, Sign In.</h1>
-          {inputs.map((input) => (
+          {signInInputs.map((input) => (
             <FormInput
               key={input.id}
               id={input.id}
