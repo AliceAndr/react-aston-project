@@ -38,7 +38,9 @@ const BookSearchResults: React.FC<BookSearchResultsProps> = (props) => {
       </ul>
     );
   }
+
   return null;
+
 };
 
 export default BookSearchResults;

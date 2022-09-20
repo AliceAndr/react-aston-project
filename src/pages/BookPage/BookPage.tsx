@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useGetOneBookQuery } from "../../redux/api/booksApi";
 import { useAppDispatch } from "../../hooks/hooks";
 import { toggleFavorite } from "../../redux/slices/userSlice";
@@ -9,14 +9,16 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import './BookPage.css';
 
 export const BookPage = () => {
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const paramsName: string = useParams().name || '';
   const { data, isLoading } = useGetOneBookQuery(paramsName);
   const user = useCurrentUser();
   const isInFavorite = user?.favorites?.find((el: { name: string, url: string }) => el.name === paramsName);
+  const url = location.pathname;
 
   const toggleFavorites = () => {
-    dispatch(toggleFavorite({ name: data?.name, url: window.location.href, userEmail: user.email }))
+    dispatch(toggleFavorite({ name: data?.name, url: url, userEmail: user.email }));
   }
 
   if (isLoading) {
@@ -25,36 +27,36 @@ export const BookPage = () => {
         <Loader />
       </div>
     )
-  } else {
-    return (
-      <div className="app__bookpage">
-        <h1>Book Info:</h1>
-        <div className="app__bookpage-infoWrap">
-          <div className="app__bookpage-infoWrap-info"><span>Title:</span> {data?.name}</div>
-          <div className="app__bookpage-infoWrap-info"><span>Author:</span> {data?.authors[0]}</div>
-          <div className="app__bookpage-infoWrap-info"><span>Cover:</span> {data?.mediaType}</div>
-          <div className="app__bookpage-infoWrap-info"><span>ISBN:</span> {data?.isbn}</div>
-          <div className="app__bookpage-infoWrap-info"><span>Number of Pages:</span> {data?.numberOfPages}</div>
-          <div className="app__bookpage-infoWrap-info"><span>Publisher:</span> {data?.publisher}</div>
-          <div className="app__bookpage-infoWrap-info"><span>Release Date:</span> {data?.released?.slice(0, 10)}</div>
-
-          {
-            user?.email ? (
-              isInFavorite ?
-                <div className="app_favorite-button" onClick={toggleFavorites}>
-                  <p className="app_favorite-p">Delete from Favorites</p>
-                  <FavoriteIcon />
-                </div>
-                :
-                <div className="app_favorite-button" onClick={toggleFavorites}>
-                  <p className="app_favorite-p">Add to Favorites</p>
-                  <FavoriteBorderIcon />
-                </div>
-            ) : null
-          }
-
-        </div>
-      </div>
-    )
   }
+
+  return (
+    <div className="app__bookpage">
+      <h1>Book Info:</h1>
+      <div className="app__bookpage-infoWrap">
+        <div className="app__bookpage-infoWrap-info"><span>Title:</span> {data?.name}</div>
+        <div className="app__bookpage-infoWrap-info"><span>Author:</span> {data?.authors[0]}</div>
+        <div className="app__bookpage-infoWrap-info"><span>Cover:</span> {data?.mediaType}</div>
+        <div className="app__bookpage-infoWrap-info"><span>ISBN:</span> {data?.isbn}</div>
+        <div className="app__bookpage-infoWrap-info"><span>Number of Pages:</span> {data?.numberOfPages}</div>
+        <div className="app__bookpage-infoWrap-info"><span>Publisher:</span> {data?.publisher}</div>
+        <div className="app__bookpage-infoWrap-info"><span>Release Date:</span> {data?.released?.slice(0, 10)}</div>
+
+        {
+          user?.email ? (
+            isInFavorite ?
+              <div className="app_favorite-button" onClick={toggleFavorites}>
+                <p className="app_favorite-p">Delete from Favorites</p>
+                <FavoriteIcon />
+              </div>
+              :
+              <div className="app_favorite-button" onClick={toggleFavorites}>
+                <p className="app_favorite-p">Add to Favorites</p>
+                <FavoriteBorderIcon />
+              </div>
+          ) : null
+        }
+
+      </div>
+    </div>
+  )
 }

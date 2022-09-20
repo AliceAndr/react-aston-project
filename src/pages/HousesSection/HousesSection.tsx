@@ -1,7 +1,7 @@
 import React, { useState, Suspense } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import TextParagraph from '../../components/TextParagraph/TextParagraph';
-import { housesFilter } from '../../utils/housesFilter';
+import { housesFilter } from '../../utils/utils';
 import { Loader } from '../../components/Loader/Loader';
 import './HousesSection.css';
 import { useAppDispatch, useCurrentUser } from '../../hooks/hooks';
@@ -10,11 +10,10 @@ import { postHistory } from '../../redux/slices/userSlice';
 const HousesSearchResults = React.lazy(() => import('../../components/HousesSearchResults/HousesSearchResults'));
 
 export const HousesSection = () => {
+  const location = useLocation();
   const dispatch = useAppDispatch()
   const urlQuery = window.location.href.split('?')[1];
-  const baseUrl = window.location.href.split('?')[0];
-  const search = useLocation().search;
-  const name = new URLSearchParams(search).get('name');
+  const name = new URLSearchParams(location.search).get('name');
   const userEmail = useCurrentUser()?.email as string;
 
   const [filterState, setFilterState] = React.useState<Record<string, boolean>>({});
@@ -47,12 +46,14 @@ export const HousesSection = () => {
   const applyFilters = () => {
     const resultQueryParams: string[] = [];
     resultQueryParams.push(`name=${searchName}`);
+
     for (let key in filterState) {
       if (filterState[key]) {
         resultQueryParams.push(`${key}=true`);
       }
     }
-    const url = `${baseUrl}?${resultQueryParams.join('&')}`
+
+    const url = `${location.pathname}?${resultQueryParams.join('&')}`;
     dispatch(postHistory({ url, userEmail }))
     navigate(`?${resultQueryParams.join('&')}`);
     setQuery(resultQueryParams.join('&'));

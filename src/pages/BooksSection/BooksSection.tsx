@@ -12,10 +12,9 @@ const BookSearchResults = React.lazy(() => import('../../components/BooksSearchR
 
 export const BooksSection = () => {
   const dispatch = useAppDispatch();
-  const baseUrl = window.location.href.split('?')[0];
   const userEmail = useCurrentUser()?.email as string;
-  const search = useLocation().search;
-  const bookName = new URLSearchParams(search).get('search');
+  const location = useLocation();
+  const bookName = new URLSearchParams(location.search).get('search');
   const navigate = useNavigate();
 
   const { data = [], isLoading } = useGetAllBooksQuery();
@@ -29,7 +28,7 @@ export const BooksSection = () => {
 
   React.useEffect(() => {
     if (searchName.length > 0) {
-      const url = `${baseUrl}?search=${debouncedSearchName}`;
+      const url = `${location.pathname}?search=${debouncedSearchName}`;
       dispatch(postHistory({ url, userEmail }));
       navigate(`?search=${debouncedSearchName}`);
     }

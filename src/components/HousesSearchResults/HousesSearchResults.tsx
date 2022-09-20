@@ -38,7 +38,9 @@ const HousesSearchResults: React.FC<HousesSearchResultsProps> = (props) => {
       </ul>
     );
   }
+
   return null;
+
 };
 
 export default HousesSearchResults;

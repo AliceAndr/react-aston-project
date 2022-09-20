@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useGetOneHouseQuery } from "../../redux/api/housesApi";
 import { useAppDispatch } from "../../hooks/hooks";
 import { toggleFavorite } from "../../redux/slices/userSlice";
@@ -9,14 +9,16 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import './HousePage.css';
 
 export const HousePage = () => {
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const { name: paramsName = '' } = useParams();
   const { data, isLoading } = useGetOneHouseQuery(paramsName);
   const user = useCurrentUser();
   const isInFavorite = user?.favorites?.find((el) => el.name === paramsName);
+  const url = location.pathname;
 
   const toggleFavorites = () => {
-    dispatch(toggleFavorite({ name: data?.name, url: window.location.href, userEmail: user.email }))
+    dispatch(toggleFavorite({ name: data?.name, url: url, userEmail: user.email }));
   }
 
   if (isLoading) {
